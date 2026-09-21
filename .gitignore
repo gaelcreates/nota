@@ -1,0 +1,15 @@
+# Secrets et config locale Vercel
+.vercel
+.env*
+# Sorties de build.py (la version déployée est dans site/)
+/index.html
+/nota-lp.html
+/connexion.html
+/conditions-generales.html
+/confidentialite.html
+/mentions-legales.html
+# Copies de sauvegarde (l'historique Git les remplace)
+*.bak
+*.bak.html
+.DS_Store
+__pycache__/
