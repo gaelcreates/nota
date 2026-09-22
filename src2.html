@@ -4,6 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nota</title>
+<meta name="description" content="Nota, l'accompagnement en 1:1 de Gael, directeur créatif, pour les créateurs et indépendants qui publient déjà. Une marque qu'on reconnaît, un contenu qui se cumule, une micro-app à ton nom. Première étape : la Lecture, 45 minutes, gratuite.">
+<meta property="og:title" content="Nota. Tu postes déjà. Construis ce qui reste.">
+<meta property="og:description" content="Un accompagnement en 1:1 pour faire de ce que tu publies une marque qui crée avec constance, et qui convertit. Première étape : la Lecture, 45 minutes, gratuite.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://notaconsulting.ch/">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://notaconsulting.ch/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%22-36%20-36%20172%20172%22%3E%3Crect%20x%3D%22-36%22%20y%3D%22-36%22%20width%3D%22172%22%20height%3D%22172%22%20rx%3D%2234%22%20fill%3D%22%23FFFFFF%22/%3E%3Cg%20fill%3D%22%230F0F0F%22%20stroke%3D%22%230F0F0F%22%20stroke-width%3D%2213%22%20stroke-linejoin%3D%22round%22%3E%3Cpolygon%20points%3D%220.5%2C6%2058.5%2C29%200.5%2C72%22/%3E%3Cpolygon%20points%3D%2299.5%2C94%2041.5%2C71%2099.5%2C28%22/%3E%3C/g%3E%3C/svg%3E">
 <style>
   @font-face { font-family: "Milligram"; font-weight: 800; font-display: swap; src: url(data:font/woff2;base64,__MILLI_XB__) format("woff2"); }
   @font-face { font-family: "Milligram"; font-weight: 500; font-display: swap; src: url(data:font/woff2;base64,__MILLI_MD__) format("woff2"); }
@@ -579,6 +588,72 @@
   .pod-p { color: var(--ink2); max-width: 44ch; }
   .pod:hover .btn .arr { transform: translateX(4px); }
   @media (max-width: 900px) { .pod { grid-template-columns: minmax(0, 1fr); } .pod-txt { padding: 4px 8px 10px; } }
+
+  /* v16 : page courte, vidéo en premier, micro-app */
+  .hero .panel { padding-bottom: clamp(56px, 6vw, 84px); }
+  .build { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .bc { position: relative; border: 1px solid var(--line); background: #fff; border-radius: var(--r); padding: 14px; display: grid; gap: 14px; align-content: start; box-shadow: var(--sh-sm); transition: transform 320ms var(--ease), box-shadow 320ms var(--ease); }
+  .bc:hover { transform: translateY(-4px); box-shadow: var(--sh-lg); }
+  .bc .vis { border-radius: 18px; background: var(--panel); border: 1px solid var(--line); padding: 16px; min-height: 236px; display: grid; align-content: center; position: relative; overflow: hidden; }
+  .bc .txt { padding: 6px 10px 8px; display: grid; gap: 8px; }
+  .bc .n { display: inline-flex; align-items: center; gap: 8px; font-family: var(--display); font-weight: 500; font-size: 12.5px; color: var(--muted); }
+  .bc .n::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+  .bc h3 { font-size: clamp(24px, 2.1vw, 29px); letter-spacing: -0.01em; }
+  .bc p { color: var(--ink2); font-size: 15.5px; }
+  .bc .liv { margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--line); font-family: var(--display); font-weight: 500; font-size: 13px; color: var(--muted); }
+  .bc .liv b { color: var(--ink); font-weight: 500; }
+  .bc.warm { background: linear-gradient(180deg, #FFFDF3, #FFF6CC); border-color: #F3DE8A; }
+  .bc.warm .vis { background: #fff; border-color: #F3DE8A; }
+  .bc.warm .liv { border-color: #F3DE8A; }
+  .bc .vis-cum { padding: 14px 14px 8px; }
+  .bc .vis-cum .legend { display: none; }
+  .bc .cum .cumsvg { width: 100%; }
+  .bio { display: grid; gap: 12px; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 14px; box-shadow: var(--sh-sm); }
+  .bio .hd { display: flex; align-items: center; gap: 10px; }
+  .bio .av { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #FFE27A); box-shadow: inset 0 0 0 2px #fff, 0 0 0 1px var(--accent2); }
+  .bio .nm { font-family: var(--display); font-weight: 500; font-size: 14px; line-height: 1.2; }
+  .bio .nm small { display: block; font-family: var(--body); font-size: 12px; color: var(--muted); }
+  .bio .line { font-family: var(--display); font-weight: 800; font-size: 17px; line-height: 1.28; color: var(--ink); }
+  .bio .kw { display: flex; flex-wrap: wrap; gap: 6px; }
+  .bio .kw span { font-family: var(--display); font-weight: 500; font-size: 11px; padding: 4px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); background: var(--panel); }
+  .dm { display: grid; gap: 8px; }
+  .dm .m { max-width: 86%; padding: 10px 12px; border-radius: 14px; border-bottom-left-radius: 4px; background: #fff; border: 1px solid var(--line); font-size: 13.5px; line-height: 1.35; color: var(--ink2); box-shadow: var(--sh-sm); }
+  .dm .m.me { justify-self: end; background: var(--ink); border-color: var(--ink); color: #fff; border-bottom-left-radius: 14px; border-bottom-right-radius: 4px; }
+  .dm .rdv { justify-self: start; display: inline-flex; align-items: center; gap: 8px; margin-top: 4px; padding: 6px 12px 6px 8px; border-radius: 999px; background: var(--soft); border: 1px solid var(--accent2); font-family: var(--display); font-weight: 500; font-size: 12px; color: var(--ink); }
+  .dm .rdv::before { content: "✓"; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; font-size: 9px; }
+  .dm > * { opacity: 0.001; transform: translateY(8px); }
+  .bc.in .dm > * { animation: rowIn 600ms var(--ease) forwards; }
+  .bc.in .dm > :nth-child(1) { animation-delay: 300ms; } .bc.in .dm > :nth-child(2) { animation-delay: 900ms; } .bc.in .dm > :nth-child(3) { animation-delay: 1600ms; } .bc.in .dm > :nth-child(4) { animation-delay: 2300ms; }
+  .mapp { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; position: relative; }
+  .mapp .lead { color: rgba(255,255,255,0.62); }
+  .mapp ul { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 12px; }
+  .mapp li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; align-items: start; font-size: 16px; color: rgba(255,255,255,0.82); }
+  .mapp li span { width: 20px; height: 20px; border-radius: 50%; background: var(--accent); color: var(--ink); display: grid; place-items: center; font-size: 10px; margin-top: 2px; }
+  .mapp .note { margin-top: 22px; font-size: 13.5px; color: rgba(255,255,255,0.48); }
+  .app { position: relative; background: #fff; color: var(--ink); border-radius: 20px; box-shadow: var(--sh-lg); overflow: hidden; }
+  .app .tb { display: flex; align-items: center; gap: 7px; padding: 12px 14px; border-bottom: 1px solid var(--line); background: var(--panel); }
+  .app .tb i { width: 10px; height: 10px; border-radius: 50%; background: #E1E1DB; }
+  .app .tb .url { margin-left: 8px; flex: 1; font-family: var(--display); font-weight: 500; font-size: 12px; color: var(--muted); background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; }
+  .app .in { padding: 22px; display: grid; gap: 12px; }
+  .app h4 { font-family: var(--display); font-weight: 800; font-size: 21px; line-height: 1.12; letter-spacing: 0; margin: 0 0 4px; text-wrap: balance; }
+  .app .f { display: grid; gap: 5px; }
+  .app .f label { font-family: var(--display); font-weight: 500; font-size: 11.5px; color: var(--muted); }
+  .app .f div { display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: 14px; background: #FBFBF8; }
+  .app .f div b { color: var(--muted); font-weight: 500; }
+  .app .res { border-radius: 14px; background: var(--soft); border: 1px solid var(--accent2); padding: 14px; display: grid; gap: 4px; }
+  .app .res .k { font-family: var(--display); font-weight: 500; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .app .res .v { font-family: var(--display); font-weight: 800; font-size: 24px; line-height: 1.1; }
+  .app .res .v small { display: block; margin-top: 2px; font-family: var(--body); font-size: 13px; font-weight: 400; color: var(--ink2); }
+  .app .mail { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+  .app .mail div { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: 13.5px; color: var(--muted); }
+  .app .mail b { font-family: var(--display); font-weight: 500; font-size: 13px; background: var(--ink); color: #fff; border-radius: 10px; padding: 10px 14px; display: grid; place-items: center; }
+  .appcap { margin-top: 14px; text-align: center; font-size: 13px; color: rgba(255,255,255,0.5); }
+  .gm { margin-top: 14px; display: grid; grid-template-columns: auto 1fr auto; gap: 22px; align-items: center; border: 1px solid #F3DE8A; border-radius: var(--r); background: #fff; padding: 20px 24px; }
+  .gm .av { width: 52px; height: 52px; border-radius: 50%; background: var(--ink); color: var(--accent); display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 22px; }
+  .gm p { font-size: 15.5px; color: var(--ink2); max-width: none; }
+  .gm p b { font-family: var(--display); font-weight: 500; color: var(--ink); }
+  @media (max-width: 1000px) { .build, .mapp { grid-template-columns: 1fr; } .bc .vis { min-height: 0; } }
+  @media (max-width: 700px) { .gm { grid-template-columns: 1fr; gap: 14px; } .gm .btn { justify-self: start; } }
 </style>
 </head>
 <body>
@@ -596,10 +671,10 @@
   <nav>
     <a class="brand" href="#top" aria-label="Nota"><svg class="mark"><use href="#nota-mark"/></svg>Nota</a>
     <div class="navlinks">
-      <a href="#change">Ce que ça change</a>
-      <a href="#methode">La méthode</a>
+      <a href="#video">La vidéo</a>
+      <a href="#construit">Ce que Nota construit</a>
+      <a href="#micro-app">Ta micro-app</a>
       <a href="#niveaux">Nota et Nota<i class="plus" style="width:.42em;height:.42em"></i></a>
-      <a href="#temoignages">Ils en parlent</a>
     </div>
     <a class="navlogin" href="__LOGIN__" aria-label="Se connecter à l'espace membre"><svg class="ico" aria-hidden="true"><use href="#user"/></svg><span>Se connecter</span></a>
     <a class="btn btn-ink btn-sm" href="#reserver" data-magnet><span>Réserver ma Lecture</span> <svg class="arr"><use href="#arrow"/></svg></a>
@@ -619,11 +694,10 @@
           </h1>
           <p class="lead fade" style="--d:525ms">En 1:1, faire de ce que tu publies une marque qui crée avec constance, et qui convertit.</p>
           <div class="cta fade" style="--d:690ms">
-            <a class="btn btn-ink" href="#reserver" data-magnet><span>Réserver ma Lecture</span> <svg class="arr"><use href="#arrow"/></svg></a>
-            <a class="btn btn-ghost" href="#video" data-magnet><span>Regarder la vidéo</span></a>
+            <a class="btn btn-ink" href="#video" data-magnet><span>Regarder la vidéo</span> <svg class="arr"><use href="#arrow"/></svg></a>
+            <a class="btn btn-ghost" href="#reserver" data-magnet><span>Réserver ma Lecture</span></a>
           </div>
-          <p class="promise fade" style="--d:800ms">Je lis tes dix derniers contenus. Tu repars avec les trois maillons qui freinent ta marque, quoi qu'il arrive.</p>
-          <div class="tags fade" style="--d:910ms"><span>SaaS Lead Magnet</span><span>Product-led Acquisition</span><span>Énergie dégagée</span><span>Conversion</span><span>Équipe</span><span>Organisation</span><span>Direction artistique</span></div>
+          <p class="promise fade" style="--d:800ms">Huit minutes pour comprendre ce qu'on construit. Puis un appel gratuit où je lis ta marque.</p>
         </div>
 
         <div class="orbit anim" role="img" aria-label="Le parcours Nota, entouré de ce que Nota travaille avec toi">
@@ -636,74 +710,60 @@
               <div><span>✓</span>Ton offre<small>fait</small></div>
               <div><span>✓</span>Ta grille de contenu<small>fait</small></div>
               <div><span>✓</span>Tes stories<small>fait</small></div>
-              <div class="c"><span>5</span>Ton SLM<small>jeudi</small></div>
+              <div class="c"><span>5</span>Ta micro-app<small>jeudi</small></div>
               <div class="n"><span>6</span>Ta conversion<small>à venir</small></div>
             </div>
             <div class="foot"><span>Semaine 5</span><div class="bar"><b style="--w:42%"></b></div></div>
           </div>
-          <span class="tagf a" style="--d:1075ms">SaaS Lead Magnet</span>
-          <span class="tagf b" style="--d:1185ms">Product-led Acquisition</span>
-          <span class="tagf c" style="--d:1295ms">Énergie dégagée</span>
-          <span class="tagf d" style="--d:1405ms">Conversion</span>
-          <span class="tagf e" style="--d:1515ms">Équipe</span>
-          <span class="tagf f" style="--d:1625ms">Organisation</span>
+          <span class="tagf a" style="--d:1075ms">Micro-app</span>
+          <span class="tagf b" style="--d:1185ms">Direction artistique</span>
+          <span class="tagf c" style="--d:1295ms">Conversion</span>
+          <span class="tagf d" style="--d:1405ms">Grille de contenu</span>
+          <span class="tagf e" style="--d:1515ms">Offre</span>
+          <span class="tagf f" style="--d:1625ms">Marque</span>
         </div>
       </div>
     </div>
   </div>
 </header>
 
-<section class="sp tint-grey" id="probleme" style="--from:#FFF4C8">
+<section class="sp vsl tint-grey" id="video" style="--from:#FAF8EE">
   <div class="wrap" data-io>
     <div class="panel">
-      <div class="sec-head">
-        <span class="chip" data-reveal>Le problème</span>
-        <h2 data-reveal style="--i:1">Tu crées bien.<br>Rien ne se <span class="hl">cumule</span><span class="dotp">.</span></h2>
+      <div class="sec-head center">
+        <span class="chip" data-reveal>Huit minutes</span>
+        <h2 data-reveal style="--i:1">Regarde ça d'abord<span class="dotp">.</span></h2>
+        <p class="lead" data-reveal style="--i:2;text-align:center">Ce qu'on construit, comment, et pour qui ce n'est pas fait.</p>
       </div>
-      <div class="pcards">
-        <div class="pcard" data-reveal style="--i:2"><span class="ic">≠</span>« J'ai pas de ligne directrice. »</div>
-        <div class="pcard" data-reveal style="--i:3"><span class="ic">⧉</span>« Je copie ce qui marche, ça marche pas pour moi. »</div>
-        <div class="pcard" data-reveal style="--i:4"><span class="ic">?</span>« Je sais pas quoi dire. »</div>
-      </div>
-      <div class="panel dark pdark" data-reveal style="--i:5">
-        <div class="blob"></div>
-        <div class="fading" aria-hidden="true"><i></i><i></i><i></i></div>
-        <h3>Chaque vidéo qui ne se cumule pas est une vidéo pour rien.</h3>
-        <p style="color:rgba(255,255,255,0.62);max-width:50ch;position:relative">Le problème n'est pas ta production. C'est ce qu'il y a avant : pas de direction, pas de message, pas de système.</p>
+      <div class="player big" data-reveal style="--i:3" aria-label="Vidéo de présentation">
+        <span class="brandcap brand"><svg class="mark"><use href="#nota-mark"/></svg>Nota</span>
+        <div class="pring" aria-hidden="true"></div>
+        <div class="play" aria-hidden="true"></div>
+        <div class="bar-ui" aria-hidden="true"><i></i><span>0:00</span><span>8:12</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sp" id="change" style="--from:#F6F6F3">
+<section class="sp" id="construit" style="--from:#F6F6F3">
   <div class="wrap" data-io>
     <div class="sec-head center">
-      <span class="chip" data-reveal>Ce que Nota change</span>
-      <h2 data-reveal style="--i:1">Trois choses que tu n'as pas <span class="hl">aujourd'hui</span><span class="dotp">.</span></h2>
+      <span class="chip" data-reveal>Ce que Nota construit</span>
+      <h2 data-reveal style="--i:1">Trois choses, avec lesquelles tu <span class="hl">repars</span><span class="dotp">.</span></h2>
     </div>
-    <div class="rescards">
-      <div class="rc" data-reveal style="--i:2">
-        <div class="ui2"><div class="ui-list">
-          <div><span style="--i:0">✓</span><p class="tx"><b>Appel 1 · Ta marque</b><small class="d">Ce que tu défends, et comment tu le dis.</small></p><small class="tag">fait</small></div>
-          <div><span style="--i:1">✓</span><p class="tx"><b>Appel 2 · Ton offre</b><small class="d">Ce que tu vends, à qui, à quel prix.</small></p><small class="tag">fait</small></div>
-          <div><span style="--i:2">✓</span><p class="tx"><b>Appel 3 · Ta grille de contenu</b><small class="d">Quoi publier, et pourquoi.</small></p><small class="tag">fait</small></div>
-          <div><span style="--i:3">✓</span><p class="tx"><b>Appel 4 · Tes stories</b><small class="d">Le lien quotidien avec ton audience.</small></p><small class="tag">fait</small></div>
-          <div><span style="--i:4">5</span><p class="tx"><b>Appel 5 · Ton SLM</b><small class="d">L'idée de ton outil, et ce qu'il rend à celui qui l'utilise.</small></p><small class="tag">jeudi</small></div>
-        </div></div>
-        <div class="txt"><span class="k">Résultat</span><h3>Un cap.</h3><p>Un appel par semaine pendant trois mois, chacun avec un objectif et un livrable.</p></div>
+    <div class="build">
+      <div class="bc" data-reveal data-tilt style="--i:2">
+        <div class="vis">
+          <div class="bio">
+            <div class="hd"><span class="av"></span><span class="nm">Toi<small>Ta bio, réécrite</small></span></div>
+            <p class="line">Une phrase qui dit ce que tu fais, <span class="hl">pour qui</span>, et pourquoi toi.</p>
+            <div class="kw"><span>Ton ton</span><span>Tes couleurs</span><span>Ton angle</span></div>
+          </div>
+        </div>
+        <div class="txt"><span class="n">01</span><h3>Une marque qu'on reconnaît.</h3><p>On écrit ce que tu défends et ce qu'on doit retenir de toi. Puis on le rend visible : un ton, un style, une image qu'on identifie en une seconde.</p><div class="liv">Tu repars avec <b>ton socle de marque, écrit</b>.</div></div>
       </div>
-      <div class="rc dark" data-reveal style="--i:3">
-        <div class="ui2"><div class="ui-steps">
-          <div class="d"><span>✓</span>Idée définie<small>avec Gael</small></div>
-          <div class="d"><span>✓</span>Tes comptes créés<small>à ton nom</small></div>
-          <div class="c"><span>3</span>En construction<small>cette semaine</small></div>
-          <div><span>4</span>Test avec toi<small></small></div>
-          <div><span>5</span>En ligne, il t'appartient<small></small></div>
-        </div></div>
-        <div class="txt"><span class="k">Résultat</span><h3>Un outil à ton nom.</h3><p>Le SLM : un mini-outil gratuit, construit pour toi. Les gens viennent pour l'outil, ils restent pour toi.</p></div>
-      </div>
-      <div class="rc warm" data-reveal style="--i:4">
-        <div class="ui2 cum" data-io>
+      <div class="bc warm" data-reveal data-tilt style="--i:3">
+        <div class="vis vis-cum"><div class="ui2 cum" data-io>
           <div class="legend"><span class="lg a"><i></i>Sans système : chaque vidéo repart de zéro</span><span class="lg b"><i></i>Avec Nota : chaque vidéo construit la suivante</span></div>
           <svg class="cumsvg" viewBox="0 0 600 260" aria-hidden="true">
             <defs>
@@ -724,72 +784,60 @@
             <g class="tag"><text x="558" y="150">Ça se cumule</text></g>
             <g class="axis"><text x="24" y="240">Aujourd'hui</text></g>
           </svg>
-                  </div>
-        <div class="txt"><span class="k">Résultat</span><h3>Une marque qu'on reconnaît.</h3><p>Sans système, chaque vidéo repart de zéro. Avec Nota, chaque vidéo construit la suivante.</p></div>
+                  </div></div>
+        <div class="txt"><span class="n">02</span><h3>Un contenu qui se cumule.</h3><p>Une grille : tu sais quoi publier chaque semaine, et pourquoi. Chaque vidéo construit la suivante, au lieu de repartir de zéro.</p><div class="liv">Tu repars avec <b>ta grille de contenu</b>.</div></div>
+      </div>
+      <div class="bc" data-reveal data-tilt style="--i:4">
+        <div class="vis">
+          <div class="dm">
+            <div class="m">J'ai vu ta vidéo sur les tarifs. C'est exactement mon problème.</div>
+            <div class="m">On peut se parler cette semaine ?</div>
+            <div class="m me">Oui. Réserve un créneau ici.</div>
+            <span class="rdv">Rendez-vous réservé · jeudi 10:00</span>
+          </div>
+        </div>
+        <div class="txt"><span class="n">03</span><h3>Des demandes qui arrivent seules.</h3><p>Le chemin entre une vidéo et un rendez-vous : ce que tu dis, où tu envoies, et ce qui capte l'e-mail. Les gens t'écrivent en citant ta vidéo.</p><div class="liv">Tu repars avec <b>ton chemin vers le client, installé</b>.</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sp tint-warm" id="avant-apres" style="--from:#FFFFFF">
+<section class="sp tint-warm" id="micro-app" style="--from:#FFFFFF">
   <div class="wrap" data-io>
-    <div class="ba-note" data-reveal>Pour un créateur qui publie déjà</div>
-    <div class="ba">
-      <div class="col before" data-reveal style="--i:1">
-        <h3>Aujourd'hui</h3>
-        <div class="row"><span>✕</span>Tu cherches une idée le dimanche soir</div>
-        <div class="row"><span>✕</span>Tu copies un format vu chez un autre</div>
-        <div class="row"><span>✕</span>Des vues, mais un compte qui ne bouge pas</div>
-        <div class="row"><span>✕</span>Personne ne t'écrit après avoir regardé</div>
-        
-      </div>
-      <div class="col after" data-reveal style="--i:2">
-        <h3>Avec Nota</h3>
-        <div class="row"><span>✓</span>Un sujet réel, une recette, et l'idée vient seule</div>
-        <div class="row"><span>✓</span>Un habillage, un ton, un angle : on sait que c'est toi</div>
-        <div class="row"><span>✓</span>Les vues deviennent des abonnés, et les abonnés t'écrivent</div>
-        <div class="row"><span>✓</span>Des messages qualifiés : ils citent ta vidéo</div>
-        
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="sp vsl tint-grey" id="video" style="--from:#FFFFFF">
-  <div class="wrap" data-io>
-    <div class="panel">
-      <div class="sec-head center">
-        <span class="chip" data-reveal>Avant de réserver</span>
-        <h2 data-reveal style="--i:1">Regarde ça d'abord<span class="dotp">.</span></h2>
-        <p class="lead" data-reveal style="--i:2;text-align:center">Huit minutes : ce qu'on construit, comment, et pour qui ce n'est pas fait.</p>
-      </div>
-      <div class="player big" data-reveal style="--i:3" aria-label="Vidéo de présentation">
-        <span class="brandcap brand"><svg class="mark"><use href="#nota-mark"/></svg>Nota</span>
-        <div class="pring" aria-hidden="true"></div>
-        <div class="play" aria-hidden="true"></div>
-        <div class="bar-ui" aria-hidden="true"><i></i><span>0:00</span><span>8:12</span></div>
+    <div class="panel dark" data-reveal>
+      <div class="blob"></div>
+      <div class="mapp">
+        <div style="position:relative">
+          <span class="chip on-dark">Ta micro-app</span>
+          <h2 style="margin-top:16px">Un outil à ton nom,<br>construit pour toi<span class="dotp">.</span></h2>
+          <p class="lead" style="margin-top:16px">Une page en ligne qui rend service à ton client en trente secondes. Un calcul, un diagnostic, un simulateur, selon ton métier. Il l'utilise, il laisse son e-mail, et il te connaît avant de t'écrire.</p>
+          <ul>
+            <li><span>✓</span>Pensée avec toi, à partir de ton métier et de ton client</li>
+            <li><span>✓</span>Construite par moi, mise en ligne à ton nom</li>
+            <li><span>✓</span>Elle t'appartient : tes comptes, ton domaine, aucun abonnement à me payer</li>
+          </ul>
+          <p class="note">Comprise dans Nota et Nota<i class="plus"></i>. Elle continue de travailler quand tu ne publies pas.</p>
+        </div>
+        <div>
+          <div class="app" data-tilt aria-label="Exemple de micro-app">
+            <span class="glare"></span>
+            <div class="tb"><i></i><i></i><i></i><span class="url">coach-marie.ch/seances</span></div>
+            <div class="in">
+              <h4>Combien de séances par semaine pour ton objectif ?</h4>
+              <div class="f"><label>Ton objectif</label><div>Perdre 5 kg <b>›</b></div></div>
+              <div class="f"><label>Ton temps disponible</label><div>3 heures par semaine <b>›</b></div></div>
+              <div class="res"><span class="k">Ton résultat</span><span class="v">3 séances de 45 min <small>pendant 8 semaines</small></span></div>
+              <div class="mail"><div>Reçois ton programme par e-mail</div><b>Envoyer</b></div>
+            </div>
+          </div>
+          <p class="appcap">Exemple : la micro-app d'une coach sportive. La tienne dépend de ton métier.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sp" id="methode" style="--from:#F6F6F3">
-  <div class="wrap" data-io>
-    <div class="sec-head center">
-      <span class="chip" data-reveal>La méthode</span>
-      <h2 data-reveal style="--i:1">Quatre étapes, dans cet <span class="hl">ordre</span><span class="dotp">.</span></h2>
-      
-    </div>
-    <div class="method">
-      <div class="step" data-reveal style="--i:0"><div class="n">01</div><h3>Marque</h3><p>Ce qu'on retient de toi.</p></div>
-      <div class="step" data-reveal style="--i:1"><div class="n">02</div><h3>Offre</h3><p>Ce que tu vends, à qui, à quel prix.</p></div>
-      <div class="step" data-reveal style="--i:2"><div class="n">03</div><h3>Contenu</h3><p>Quoi publier, sans page blanche.</p></div>
-      <div class="step" data-reveal style="--i:3"><div class="n">04</div><h3>Conversion</h3><p>Du contenu au rendez-vous.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="sp tint-grey" id="niveaux" style="--from:#FFFFFF">
+<section class="sp tint-grey" id="niveaux" style="--from:#FFFBEA">
   <div class="wrap" data-io>
     <div class="panel">
       <div class="sec-head">
@@ -800,11 +848,10 @@
         <div class="lvl" data-reveal data-tilt style="--i:2">
           <span class="brand"><svg class="mark"><use href="#nota-mark"/></svg>Nota</span>
           <div class="who">Il te manque une direction</div>
-          <p class="promise">Marque, offre, contenu, conversion. Tu apprends à faire, six mois durant.</p>
+          <p class="promise">Tu apprends à tout tenir toi-même. Je dirige.</p>
           <ul>
             <li><span>✓</span>Trois mois de 1:1, un appel par semaine</li>
-            <li><span>✓</span>Le programme et ta Carte Créateur</li>
-            <li><span>✓</span>Ton SLM, construit pour toi</li>
+                        <li><span>✓</span>Ta micro-app, construite pour toi</li>
             <li><span>✓</span>Le Discord et un appel de groupe par semaine</li>
           </ul>
           <a class="btn btn-ghost" href="#reserver" data-magnet><span>Réserver ma Lecture</span> <svg class="arr"><use href="#arrow"/></svg></a>
@@ -813,12 +860,11 @@
           <span class="tag">Fait avec toi</span>
           <span class="brand"><svg class="mark"><use href="#nota-mark"/></svg>Nota<i class="plus"></i></span>
           <div class="who">Il te manque du temps</div>
-          <p class="promise">Plus précis, et fait avec toi. Livré, pas seulement enseigné.</p>
+          <p class="promise">On fait une partie du travail ensemble. Livré, pas seulement enseigné.</p>
           <ul>
             <li><span>✓</span>Tout Nota, appels 1:1 sans plafond, six mois</li>
             <li><span>✓</span>Ton socle de marque, écrit avec toi</li>
-            <li><span>✓</span>Direction artistique : identité, présence, déclinaison</li>
-            <li><span>✓</span>Stratégie de contenu et tunnel d'acquisition</li>
+                        <li><span>✓</span>Stratégie de contenu et tunnel d'acquisition</li>
             <li><span>✓</span>Une journée ensemble, en présentiel</li>
           </ul>
           <a class="btn btn-ink" href="#reserver" data-magnet><span>Réserver ma Lecture</span> <svg class="arr"><use href="#arrow"/></svg></a>
@@ -826,6 +872,7 @@
       </div>
     </div>
   </div>
+
 </section>
 
 <section class="sp tint-warm" id="temoignages" style="--from:#F6F6F3">
@@ -871,32 +918,18 @@
     </a>
     <div class="band">
       <div class="stat" data-reveal style="--i:7"><div class="n"><span data-count="10000" data-prefix="+">0</span></div><div class="l">abonnés sur mon compte Instagram, avec cette méthode</div></div>
-      <div class="stat" data-reveal style="--i:8"><div class="n"><span data-count="2" data-prefix="≈ ">0</span> M</div><div class="l">de vues pour Naël, puis un pivot de niche réussi</div></div>
+      <div class="stat" data-reveal style="--i:8"><div class="n"><span data-count="2" data-prefix="≈ ">0</span> M</div><div class="l">de vues pour Naël en un mois, puis un pivot de niche réussi</div></div>
       <div class="stat" data-reveal style="--i:9"><div class="n"><span data-count="400" data-prefix="+">0</span></div><div class="l">vidéos de concurrents analysées</div></div>
     </div>
-  </div>
-</section>
-
-<section class="sp tint-grey" id="gael" style="--from:#FFFBEA">
-  <div class="wrap" data-io>
-    <div class="panel">
-      <div class="me">
-        <div data-reveal>
-          <span class="chip">Qui je suis</span>
-          <h2 style="margin-top:16px">Gael<span class="dotp">.</span></h2>
-        </div>
-        <div class="txt">
-          <p class="big" data-reveal style="--i:1">Je crée du contenu depuis mes 17 ans.</p>
-          <p data-reveal style="--i:2">J'ai été grenadier de char dans l'armée suisse. J'y ai appris deux choses qui me servent tous les jours : tenir un cadre, et tenir dans la durée.</p>
-          <p data-reveal style="--i:3">Tout ce que je transmets, je l'ai d'abord testé sur mes comptes : un univers, un positionnement, un système. Plus de 10 000 abonnés plus tard, j'accompagne des créateurs et des fondateurs comme directeur créatif.</p>
-          <p data-reveal style="--i:4">Aujourd'hui, je construis Nota, et Semper, un calendrier éditorial gratuit pour les créateurs. Je code mes outils moi-même, et je construis le tien avec toi.</p>
-        </div>
-      </div>
+    <div class="gm" data-reveal style="--i:10">
+      <span class="av">G</span>
+      <p><b>Gael, directeur créatif.</b> Je crée du contenu depuis mes 17 ans. Grenadier de char dans l'armée suisse, j'y ai appris à tenir un cadre. Tout ce que je transmets, je l'ai d'abord testé sur mes comptes, jusqu'à dépasser les 10 000 abonnés.</p>
+      <a class="btn btn-ghost btn-sm" href="https://www.instagram.com/gaelcreates/" target="_blank" rel="noopener"><span>Mon Instagram</span> <svg class="arr"><use href="#arrow"/></svg></a>
     </div>
   </div>
 </section>
 
-<section class="sp" id="reserver" style="--from:#F6F6F3">
+<section class="sp" id="reserver" style="--from:#FFFBEA">
   <div class="wrap" data-io>
     <div class="panel dark" data-reveal>
       <div class="blob"></div>
@@ -904,7 +937,7 @@
         <div style="position:relative">
           <span class="chip on-dark">La Lecture</span>
           <h2 style="margin-top:16px">Je lis ta marque.<br>Tu repars avec trois maillons<span class="dotp">.</span></h2>
-          <p class="lead" style="margin-top:16px">Quarante-cinq minutes. Je lis tes dix derniers contenus et je te dis les trois choses qui freinent ta marque, preuve à l'appui dans tes propres posts. Ensuite seulement, on voit si Nota ou Nota<i class="plus"></i> est le bon format.</p>
+          <p class="lead" style="margin-top:16px">Quarante-cinq minutes, gratuites. Je lis tes dix derniers contenus et je te dis les trois choses qui freinent ta marque, preuve à l'appui dans tes propres posts. Ensuite seulement, on voit si Nota ou Nota<i class="plus"></i> est le bon format.</p>
           <div class="chain" aria-label="Les six maillons qu'on lit"><span>Le rythme</span><span>Le cadre</span><span>L'accroche</span><span>La signature</span><span>L'intention</span><span>Le passage</span></div>
         </div>
         <div class="cal">
@@ -927,9 +960,9 @@
     <div class="faq" data-reveal style="--i:2">
       <details open><summary><span>Combien de temps ça demande ?</span></summary><p>Un appel par semaine, de trente minutes à une heure, plus trois à cinq heures pour écrire, filmer, publier. Nota ne réduit pas le travail, il l'oriente.</p></details>
       <details><summary><span>Combien de temps ça dure ?</span></summary><p>Six mois. Les trois premiers avec un appel individuel par semaine. Le programme, le Discord et l'appel de groupe hebdomadaire t'accompagnent jusqu'au bout.</p></details>
-      <details><summary><span>Pour qui ce n'est pas fait ?</span></summary><p>Si tu crées par passion seulement, si tu n'es pas sûr de vouloir ta marque, ou pas prêt à y mettre le travail. Je te le dis pendant l'appel.</p></details>
       <details><summary><span>Nota ou Nota<i class="plus"></i> ?</span></summary><p>Nota si tu veux une direction et apprendre à tout tenir toi-même. Nota<i class="plus"></i> si tu veux aller plus précis sur ta marque et ton image, avec une partie du travail faite avec toi. Certains commencent par Nota et passent à Nota<i class="plus"></i> au bout de trois mois. On tranche pendant l'appel.</p></details>
-      <details><summary><span>Le SLM, c'est quoi ?</span></summary><p>Un mini-outil gratuit, en ligne, à ton nom, qui répond à la question que ton audience te pose tout le temps. Je le construis avec toi, sur des comptes à ton nom : il t'appartient.</p></details>
+      <details><summary><span>La micro-app, c'est quoi ?</span></summary><p>Une page en ligne, à ton nom, qui répond à la question que ton client te pose tout le temps. Je la construis avec toi, sur des comptes à ton nom : elle t'appartient, sans abonnement à me payer.</p></details>
+      <details><summary><span>Pour qui ce n'est pas fait ?</span></summary><p>Si tu crées par passion seulement, si tu n'as rien à vendre, ou si tu cherches quelqu'un qui fasse le travail à ta place. Je te le dis pendant l'appel.</p></details>
     </div>
   </div>
 </section>
