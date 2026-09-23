@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nota</title>
-<meta name="description" content="Nota, l'accompagnement en 1:1 de Gael, directeur créatif, pour les créateurs et indépendants qui publient déjà. Une marque qu'on reconnaît, un contenu qui se cumule, une micro-app à ton nom. Première étape : la Lecture, 45 minutes, gratuite.">
+<meta name="description" content="Nota, l'accompagnement en 1:1 de Gael, directeur créatif, pour les créateurs et indépendants dont l'activité tourne déjà. Une marque qu'on reconnaît, un contenu qui se cumule, une micro-app à ton nom. Première étape : la Lecture, 45 minutes, gratuite.">
 <meta property="og:title" content="Nota. Tu postes déjà. Construis ce qui reste.">
 <meta property="og:description" content="Un accompagnement en 1:1 pour faire de ce que tu publies une marque qui crée avec constance, et qui convertit. Première étape : la Lecture, 45 minutes, gratuite.">
 <meta property="og:type" content="website">
@@ -654,6 +654,247 @@
   .gm p b { font-family: var(--display); font-weight: 500; color: var(--ink); }
   @media (max-width: 1000px) { .build, .mapp { grid-template-columns: 1fr; } .bc .vis { min-height: 0; } }
   @media (max-width: 700px) { .gm { grid-template-columns: 1fr; gap: 14px; } .gm .btn { justify-self: start; } }
+
+  /* v17 : page fluide, lecteur, sur mesure */
+  .sec { padding-block: clamp(40px, 6vw, 88px); }
+  .sec + .sec { padding-top: 0; }
+  #video { padding-top: clamp(28px, 4vw, 56px); }
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 500; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .eyebrow::before { content: ""; width: 18px; height: 2px; background: var(--accent); border-radius: 2px; }
+  .eyebrow.on-dark { color: rgba(255,255,255,0.6); }
+  .sec-head { margin-bottom: clamp(28px, 4vw, 48px); }
+  .sec-head h2 { max-width: 26ch; }
+  .sec-head.center h2 { max-width: 24ch; }
+  /* vidéo */
+  .vs { display: grid; gap: clamp(22px, 3vw, 34px); max-width: 1040px; margin-inline: auto; }
+  .vs-head { display: grid; gap: 14px; justify-items: center; text-align: center; }
+  .vs-head .lead { max-width: 60ch; }
+  .vp { position: relative; aspect-ratio: 16 / 9; border-radius: 24px; overflow: hidden; background: #0F0F0F; box-shadow: var(--sh-lg); }
+  .vp-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #0F0F0F; }
+  .vp-poster { position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 0%, #2A2A26 0%, #0F0F0F 60%); transition: opacity 500ms var(--ease); }
+  .vp-poster::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(240,240,238,0.16) 1px, transparent 1px); background-size: 22px 22px; mask-image: radial-gradient(circle at 50% 50%, #000 0%, transparent 70%); -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 0%, transparent 70%); }
+  .vp-poster .brandcap { position: absolute; top: 18px; left: 20px; color: #fff; font-size: 18px; }
+  .vp.playing .vp-poster { opacity: 0; pointer-events: none; }
+  .vp-play { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; display: grid; place-items: center; }
+  .vp-play:focus-visible { outline: 3px solid var(--accent); outline-offset: -6px; }
+  .vp-ring { position: absolute; width: 84px; height: 84px; border-radius: 50%; border: 1.5px solid rgba(255,197,8,0.6); animation: ring 2.4s var(--ease) infinite; }
+  .vp-btn { position: relative; width: 84px; height: 84px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; transition: transform 300ms var(--ease); box-shadow: 0 18px 40px -16px rgba(255,197,8,0.7); }
+  .vp-play:hover .vp-btn { transform: scale(1.06); }
+  .vp-btn::after { content: ""; border-left: 24px solid #0F0F0F; border-top: 14px solid transparent; border-bottom: 14px solid transparent; margin-left: 6px; }
+  .vp.playing .vp-ring { display: none; }
+  .vp.playing .vp-btn { opacity: 0; transform: scale(.6); }
+  .vp.playing.paused .vp-btn { opacity: 1; transform: none; }
+  .vp.playing.paused .vp-btn::after { border: 0; width: 22px; height: 26px; margin: 0; background: linear-gradient(90deg, #0F0F0F 0 36%, transparent 36% 64%, #0F0F0F 64%); }
+  .vp-ui { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 20px 16px; background: linear-gradient(transparent, rgba(15,15,15,0.72)); display: grid; gap: 10px; transition: opacity 400ms var(--ease); }
+  .vp.playing:not(.paused):not(:hover) .vp-ui { opacity: 0; }
+  .vp-bar { position: relative; height: 5px; border-radius: 999px; background: rgba(255,255,255,0.22); cursor: pointer; }
+  .vp-bar::before { content: ""; position: absolute; inset: -10px 0; }
+  .vp-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 999px; background: var(--accent); box-shadow: 0 0 12px rgba(255,197,8,0.6); }
+  .vp-marks { position: absolute; inset: 0; pointer-events: none; }
+  .vp-marks i { position: absolute; top: -2px; bottom: -2px; width: 2px; margin-left: -1px; background: rgba(255,255,255,0.55); border-radius: 2px; }
+  .vp-chapters { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .vp-chapters::-webkit-scrollbar { display: none; }
+  .vp-chapters button { flex: none; font: inherit; font-family: var(--display); font-weight: 500; font-size: 12px; color: rgba(255,255,255,0.78); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 6px 11px; cursor: pointer; transition: background 200ms, color 200ms, border-color 200ms; }
+  .vp-chapters button:hover, .vp-chapters button.on { background: var(--accent); border-color: var(--accent); color: var(--ink); }
+  .vp.soon .vp-ui { display: none; }
+  .vp-soon { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); font-family: var(--display); font-weight: 500; font-size: 13px; color: rgba(255,255,255,0.7); background: rgba(15,15,15,0.5); border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 8px 14px; white-space: nowrap; }
+  .vs-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 22px; }
+  .vs-note { font-size: 15px; color: var(--muted); max-width: 40ch; }
+  /* trois choses */
+  .b3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 4vw, 56px); }
+  .b3-col { display: grid; gap: 12px; align-content: start; }
+  .b3-vis { border-radius: 20px; background: var(--panel); padding: 18px; min-height: 250px; display: grid; align-content: center; overflow: hidden; margin-bottom: 14px; }
+  .b3-cum { background: linear-gradient(180deg, #FFFDF3, #FFF6CC); padding: 14px 14px 6px; }
+  .b3-cum .legend { display: none; }
+  .b3-n { font-family: var(--display); font-weight: 500; font-size: 12px; letter-spacing: 0.14em; color: var(--muted); display: inline-flex; align-items: center; gap: 10px; }
+  .b3-n::before { content: ""; width: 18px; height: 2px; background: var(--accent); }
+  .b3-col h3 { font-size: clamp(24px, 2.2vw, 30px); letter-spacing: -0.01em; }
+  .b3-col p { color: var(--ink2); font-size: 16px; }
+  .b3-liv { margin-top: 6px; padding-top: 14px; border-top: 1px solid var(--line); font-family: var(--display); font-weight: 500; font-size: 13.5px; color: var(--muted) !important; }
+  .b3-liv b { color: var(--ink); font-weight: 500; }
+  .bio { box-shadow: var(--sh-md); }
+  .b3-col.in .dm > * { animation: rowIn 600ms var(--ease) forwards; }
+  .b3-col.in .dm > :nth-child(1) { animation-delay: 300ms; } .b3-col.in .dm > :nth-child(2) { animation-delay: 900ms; } .b3-col.in .dm > :nth-child(3) { animation-delay: 1600ms; } .b3-col.in .dm > :nth-child(4) { animation-delay: 2300ms; }
+  /* niveaux */
+  .lv2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 4vw, 64px); }
+  .lv2-col { position: relative; display: grid; gap: 18px; align-content: start; padding-top: 28px; border-top: 2px solid var(--ink); }
+  .lv2-col.lv2-plus { border-top-color: var(--accent); }
+  .lv2-col .brand { font-size: 34px; }
+  .lv2-col .who { font-family: var(--display); font-weight: 500; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .lv2-col .promise { font-family: var(--display); font-weight: 800; font-size: clamp(22px, 2vw, 26px); letter-spacing: -0.005em; line-height: 1.15; max-width: 22ch; }
+  .lv2-col ul { list-style: none; margin: 4px 0 6px; padding: 0; display: grid; }
+  .lv2-col li { padding: 12px 0; border-top: 1px solid var(--line); font-size: 16px; color: var(--ink2); display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; }
+  .lv2-col li::before { content: "✓"; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; font-size: 10px; margin-top: 2px; }
+  .lv2-col .btn { justify-self: start; }
+  .lv2-col .tag { position: absolute; top: 28px; right: 0; font-family: var(--display); font-weight: 500; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; background: var(--accent); color: var(--ink); padding: 6px 10px; border-radius: 999px; }
+  .sm { margin-top: clamp(36px, 5vw, 64px); padding-top: 26px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto; gap: 20px 40px; align-items: center; }
+  .sm-k { font-family: var(--display); font-weight: 500; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); display: inline-flex; align-items: center; gap: 10px; }
+  .sm-k::before { content: ""; width: 18px; height: 2px; background: var(--ink); }
+  .sm-h { margin-top: 10px; font-family: var(--display); font-weight: 800; font-size: clamp(20px, 2.2vw, 28px); line-height: 1.15; letter-spacing: -0.005em; max-width: 30ch; }
+  .sm-p { margin-top: 8px; color: var(--ink2); font-size: 16px; }
+  /* volet */
+  .drawer-bg { position: fixed; inset: 0; background: rgba(15,15,15,0.5); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 60; opacity: 0; transition: opacity 320ms var(--ease); }
+  .drawer-bg.on { opacity: 1; }
+  .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(560px, 100%); background: #fff; z-index: 61; box-shadow: var(--sh-lg); transform: translateX(100%); transition: transform 460ms var(--ease); overflow-y: auto; overscroll-behavior: contain; }
+  .drawer.on { transform: none; }
+  .drawer-in { padding: clamp(28px, 5vw, 48px); display: grid; gap: 22px; min-height: 100%; }
+  .drawer-x { position: absolute; top: 18px; right: 18px; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: #fff; font-size: 14px; cursor: pointer; display: grid; place-items: center; transition: background 200ms; }
+  .drawer-x:hover { background: var(--soft); }
+  .drawer h2 { font-size: clamp(28px, 3.2vw, 36px); margin-top: 6px; padding-right: 40px; }
+  .drawer .lead { font-size: 17px; }
+  .dr-list { display: grid; }
+  .dr-item { display: grid; grid-template-columns: 44px 1fr; gap: 12px; padding: 18px 0; border-top: 1px solid var(--line); }
+  .dr-n { font-family: var(--display); font-weight: 500; font-size: 12px; letter-spacing: 0.12em; color: var(--muted); padding-top: 5px; }
+  .dr-item h3 { font-size: 19px; }
+  .dr-item p { margin-top: 6px; color: var(--ink2); font-size: 15.5px; }
+  .dr-how { padding-top: 18px; border-top: 1px solid var(--line); }
+  .dr-how h3 { font-size: 19px; margin-bottom: 10px; }
+  .dr-how ol { margin: 0; padding-left: 20px; color: var(--ink2); display: grid; gap: 6px; font-size: 15.5px; }
+  .dr-cta { display: grid; gap: 10px; justify-items: start; padding-top: 8px; }
+  .dr-note { font-size: 13.5px; color: var(--muted); }
+  body.drawer-open { overflow: hidden; }
+  /* témoignages */
+  .tm { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(28px, 4vw, 64px); align-items: stretch; }
+  .tm-feat { display: grid; gap: 22px; grid-template-rows: auto 1fr auto; align-content: stretch; padding: clamp(24px, 3vw, 36px); border-radius: 24px; background: linear-gradient(135deg, #1D1D1A, #0F0F0F 60%); color: #fff; }
+  .tm-feat .cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .tm-feat .cmp > div { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 14px; display: grid; gap: 10px; }
+  .tm-feat .cmp .k { font-family: var(--display); font-weight: 500; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+  .tm-feat .cmp .bars { display: flex; align-items: flex-end; gap: 8px; height: 56px; }
+  .tm-feat .cmp .bars i { flex: 1; height: var(--h); background: rgba(255,255,255,0.18); border-radius: 6px 6px 2px 2px; transform-origin: bottom; }
+  .tm-feat .cmp .bars i:last-child { background: var(--accent); }
+  .tm-feat.in .cmp .bars i { transform: scaleY(1); }
+  .tm-feat .cmp .lbl { display: flex; justify-content: space-between; font-family: var(--display); font-weight: 500; font-size: 14px; }
+  .tm-feat .cmp .lbl em { font-style: normal; color: rgba(255,255,255,0.5); } .tm-feat .cmp .lbl b { color: var(--accent); }
+  .tm-q { margin: 0; font-size: 17px; line-height: 1.55; color: var(--ink2); }
+  .tm-q.big { font-size: clamp(18px, 1.7vw, 22px); line-height: 1.5; color: rgba(255,255,255,0.86); }
+  .tm .who { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 500; font-size: 13px; color: var(--muted); }
+  .tm .who i { width: 30px; height: 30px; border-radius: 50%; background: var(--panel); border: 1px solid var(--line); display: grid; place-items: center; font-style: normal; font-size: 12px; color: var(--ink); }
+  .tm-feat .who { color: rgba(255,255,255,0.55); } .tm-feat .who i { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.14); color: #fff; }
+  .tm-list { display: grid; }
+  .tm-item { display: grid; gap: 14px; padding: 22px 0; border-top: 1px solid var(--line); }
+  .tm-item:first-child { padding-top: 0; border-top: 0; } .tm-item:last-child { padding-bottom: 0; }
+  .pod { margin-top: clamp(28px, 4vw, 48px); border: 0; background: var(--panel); }
+  .nums { margin-top: clamp(28px, 4vw, 48px); display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--line); }
+  .num { padding: 24px 24px 24px 0; display: grid; gap: 6px; border-right: 1px solid var(--line); }
+  .num + .num { padding-left: 24px; } .num:last-child { border-right: 0; }
+  .num .n { font-family: var(--display); font-weight: 800; font-size: clamp(34px, 3.4vw, 44px); letter-spacing: 0; font-variant-numeric: tabular-nums; line-height: 1; }
+  .num .l { font-size: 14px; color: var(--muted); }
+  .gm { border: 0; border-top: 1px solid var(--line); border-radius: 0; background: transparent; padding: 24px 0 0; margin-top: 0; }
+  .book .lead, .mapp .lead { font-size: 18px; }
+  .faq { max-width: 860px; }
+  .foot { margin-top: clamp(40px, 6vw, 80px); }
+  @media (max-width: 1000px) {
+    .b3 { grid-template-columns: 1fr; gap: 40px; } .b3-vis { min-height: 0; }
+    .lv2 { grid-template-columns: 1fr; gap: 40px; }
+    .tm { grid-template-columns: 1fr; }
+    .sm { grid-template-columns: 1fr; } .sm .btn { justify-self: start; }
+  }
+  @media (max-width: 700px) {
+    h2 { font-size: clamp(30px, 8.4vw, 40px); }
+    .sec { padding-block: 40px; }
+    .vp { border-radius: 16px; }
+    .vp-ui { padding: 30px 12px 12px; }
+    .vp-btn, .vp-ring { width: 68px; height: 68px; }
+    .vs-cta { flex-direction: column; align-items: stretch; text-align: center; } .vs-cta .btn { width: 100%; }
+    .lv2-col .btn { width: 100%; justify-self: stretch; }
+    .nums { grid-template-columns: 1fr; }
+    .num { border-right: 0; border-bottom: 1px solid var(--line); padding: 18px 0; } .num + .num { padding-left: 0; } .num:last-child { border-bottom: 0; }
+    .drawer { width: 100%; }
+    .tm-feat .cmp { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* v18 : vie, transitions, avis au clavier, volet central */
+  .tm-q.tw { quotes: none; position: relative; display: block; }
+  .tm-q.tw .qm { color: var(--accent); font-family: var(--display); font-weight: 800; }
+  .tm-q.tw .ghost { visibility: hidden; }
+  .tm-q.tw .typed { position: absolute; inset: 0; }
+  .tm-q.tw .caret { display: inline-block; width: 2px; height: 0.95em; margin-left: 2px; vertical-align: -0.12em; background: var(--accent); animation: blink 900ms steps(1) infinite; }
+  /* liaisons entre sections : dégradés longs, jamais de ligne nette */
+  .hero .panel { background: linear-gradient(160deg, #FFFFFF 0%, #FFFDF4 45%, #FFF4C8 78%, #FFFBEA 100%); }
+  #video { position: relative; }
+  #video::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 320px; background: linear-gradient(#FFFBEA, transparent); z-index: -1; }
+  #construit, #niveaux, #faq { position: relative; }
+  #construit::before, #niveaux::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(transparent 0%, #FBFAF4 30%, #FBFAF4 70%, transparent 100%); }
+  #temoignages { position: relative; }
+  #temoignages::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(transparent, #FFFBEA 35%, #FFFBEA 65%, transparent); }
+  .sec .wrap { position: relative; }
+  /* apparitions : léger flou + rotation sur les cartes */
+  [data-reveal] { filter: blur(6px); transition: opacity 900ms var(--ease), transform 900ms var(--ease), filter 900ms var(--ease); }
+  [data-reveal].in { filter: blur(0); }
+  .lvl[data-reveal] { transform: translateY(28px) rotate(-1.2deg); transform-origin: bottom left; }
+  .lvl.lvl-plus[data-reveal] { transform: translateY(28px) rotate(1.2deg); transform-origin: bottom right; }
+  .lvl[data-reveal].in { transform: none; }
+  .lvl { transition: transform 900ms var(--ease), box-shadow 320ms var(--ease), opacity 900ms var(--ease), filter 900ms var(--ease); }
+  .lvl.in:hover { transform: translateY(-6px) rotate(0.4deg); box-shadow: var(--sh-lg); }
+  .lvl.lvl-plus.in:hover { transform: translateY(-6px) rotate(-0.4deg); }
+  .eyebrow::before, .b3-n::before, .sm-k::before { transform: scaleX(0); transform-origin: left; transition: transform 700ms var(--ease) 200ms; }
+  .in .eyebrow::before, .in .b3-n::before, .in .sm-k::before, .eyebrow.in::before, .drawer .eyebrow::before { transform: scaleX(1); }
+  .hl::before { transform: scaleX(0); transform-origin: left; transition: transform 700ms var(--ease) 500ms; }
+  .in .hl::before, .hero .hl::before { transform: scaleX(1); }
+  .hero .hl::before { animation: hlIn 700ms var(--ease) 900ms both; }
+  @keyframes hlIn { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .b3-vis { position: relative; transition: transform 320ms var(--ease), box-shadow 320ms var(--ease); }
+  .b3-vis:hover { transform: translateY(-4px); box-shadow: var(--sh-md); }
+  .bio .kw span { opacity: 0.001; transform: translateY(6px); transition: opacity 500ms var(--ease), transform 500ms var(--ease); }
+  .b3-col.in .bio .kw span { opacity: 1; transform: none; }
+  .b3-col.in .bio .kw span:nth-child(1) { transition-delay: 500ms; } .b3-col.in .bio .kw span:nth-child(2) { transition-delay: 650ms; } .b3-col.in .bio .kw span:nth-child(3) { transition-delay: 800ms; }
+  .b3-col.in .bio .line .hl::before { transition-delay: 900ms; }
+  .app .f, .app .res, .app .mail { opacity: 0.001; transform: translateY(8px); transition: opacity 600ms var(--ease), transform 600ms var(--ease); }
+  .panel.in .app .f, .panel.in .app .res, .panel.in .app .mail { opacity: 1; transform: none; }
+  .panel.in .app .f:nth-of-type(1) { transition-delay: 400ms; } .panel.in .app .f:nth-of-type(2) { transition-delay: 700ms; } .panel.in .app .res { transition-delay: 1100ms; } .panel.in .app .mail { transition-delay: 1400ms; }
+  .panel.in .app .res { animation: resPop 700ms var(--ease) 1100ms both; }
+  @keyframes resPop { 0% { transform: translateY(8px) scale(.98); opacity: 0; } 60% { transform: scale(1.015); opacity: 1; } 100% { transform: none; opacity: 1; } }
+  .num .n { opacity: 0.001; transform: translateY(10px); transition: opacity 700ms var(--ease), transform 700ms var(--ease); }
+  .num.in .n { opacity: 1; transform: none; }
+  .vp-btn { animation: breathe 3.2s var(--ease) infinite; }
+  @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+  .vp.playing .vp-btn { animation: none; }
+  .chain span { opacity: 0.001; transform: translateY(8px); transition: opacity 600ms var(--ease), transform 600ms var(--ease); }
+  .panel.in .chain span { opacity: 1; transform: none; }
+  .panel.in .chain span:nth-child(1) { transition-delay: 300ms; } .panel.in .chain span:nth-child(2) { transition-delay: 400ms; } .panel.in .chain span:nth-child(3) { transition-delay: 500ms; } .panel.in .chain span:nth-child(4) { transition-delay: 600ms; } .panel.in .chain span:nth-child(5) { transition-delay: 700ms; } .panel.in .chain span:nth-child(6) { transition-delay: 800ms; }
+  .panel.dark .blob { animation: blobDrift 14s ease-in-out infinite alternate; }
+  @keyframes blobDrift { from { transform: translate(0, 0) scale(1); } to { transform: translate(-60px, 40px) scale(1.12); } }
+  .pod .pod-play { transition: transform 300ms var(--ease); } .pod:hover .pod-play { transform: scale(1.08); }
+  .sm { transition: border-color 300ms; }
+  /* volet central */
+  .drawer { top: 50%; left: 50%; right: auto; bottom: auto; width: min(760px, calc(100% - 32px)); max-height: calc(100vh - 48px); max-height: calc(100dvh - 48px); border-radius: 26px; transform: translate(-50%, -50%) translateY(24px) scale(.97); opacity: 0; transition: transform 460ms var(--ease), opacity 360ms var(--ease); }
+  .drawer.on { transform: translate(-50%, -50%); opacity: 1; }
+  .drawer-in { padding: clamp(28px, 5vw, 52px); min-height: 0; }
+  .drawer h2 { max-width: 26ch; }
+  .dr-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; }
+  .dr-item { grid-template-columns: 36px 1fr; }
+  @media (max-width: 700px) {
+    .drawer { width: calc(100% - 20px); max-height: calc(100dvh - 20px); border-radius: 20px; }
+    .dr-list { grid-template-columns: 1fr; }
+    .lvl[data-reveal], .lvl.lvl-plus[data-reveal] { transform: translateY(20px); }
+  }
+  @media (prefers-reduced-motion: reduce) { [data-reveal] { filter: none; } .vp-btn, .panel.dark .blob { animation: none; } }
+
+  /* v19 : fenêtre sur mesure, large, sans défilement sur ordinateur */
+  .drawer { width: min(1180px, calc(100% - 32px)); max-height: calc(100dvh - 40px); overflow: hidden; }
+  .drawer-in { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 4vw, 56px); align-items: start; padding: clamp(28px, 3.6vw, 48px); }
+  .dr-left { display: grid; gap: 18px; }
+  .drawer h2 { font-size: clamp(26px, 2.6vw, 34px); max-width: none; padding-right: 0; }
+  .drawer .lead { font-size: 16px; }
+  .drawer .dr-how { padding-top: 14px; }
+  .drawer .dr-how h3 { font-size: 17px; }
+  .drawer .dr-how ol { font-size: 15px; gap: 4px; }
+  .drawer .dr-cta { padding-top: 4px; }
+  .drawer .dr-list { grid-template-columns: 1fr; gap: 0; padding-top: 6px; }
+  .drawer .dr-item { padding: 14px 0; }
+  .drawer .dr-item:first-child { border-top: 0; padding-top: 0; }
+  .drawer .dr-item h3 { font-size: 17px; }
+  .drawer .dr-item p { font-size: 14.5px; margin-top: 4px; }
+  @media (max-width: 900px) {
+    .drawer { overflow-y: auto; }
+    .drawer-in { grid-template-columns: 1fr; }
+  }
+
+  /* v20 : bas du hero fondu, plus de démarcation */
+  .hero .panel::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 260px; background: linear-gradient(rgba(255,251,234,0), #FFFBEA); pointer-events: none; z-index: 0; }
+  .hero .cols { z-index: 1; }
+  .hero .dots { mask-image: linear-gradient(#000 30%, transparent 70%); -webkit-mask-image: linear-gradient(#000 30%, transparent 70%); }
+  #video::before { height: 420px; }
 </style>
 </head>
 <body>
@@ -697,7 +938,7 @@
             <a class="btn btn-ink" href="#video" data-magnet><span>Regarder la vidéo</span> <svg class="arr"><use href="#arrow"/></svg></a>
             <a class="btn btn-ghost" href="#reserver" data-magnet><span>Réserver ma Lecture</span></a>
           </div>
-          <p class="promise fade" style="--d:800ms">Huit minutes pour comprendre ce qu'on construit. Puis un appel gratuit où je lis ta marque.</p>
+          <p class="promise fade" style="--d:800ms">Cinq minutes pour comprendre ce qu'on construit. Puis un appel gratuit où je lis ta marque.</p>
         </div>
 
         <div class="orbit anim" role="img" aria-label="Le parcours Nota, entouré de ce que Nota travaille avec toi">
@@ -727,43 +968,57 @@
   </div>
 </header>
 
-<section class="sp vsl tint-grey" id="video" style="--from:#FAF8EE">
+<section class="sec" id="video">
   <div class="wrap" data-io>
-    <div class="panel">
-      <div class="sec-head center">
-        <span class="chip" data-reveal>Huit minutes</span>
+    <div class="vs">
+      <div class="vs-head">
+        <span class="eyebrow" data-reveal>Cinq minutes, chapitrées</span>
         <h2 data-reveal style="--i:1">Regarde ça d'abord<span class="dotp">.</span></h2>
-        <p class="lead" data-reveal style="--i:2;text-align:center">Ce qu'on construit, comment, et pour qui ce n'est pas fait.</p>
+        <p class="lead" data-reveal style="--i:2">Ce qu'on construit, comment, et pour qui ce n'est pas fait. Tu peux sauter au chapitre qui t'intéresse.</p>
       </div>
-      <div class="player big" data-reveal style="--i:3" aria-label="Vidéo de présentation">
-        <span class="brandcap brand"><svg class="mark"><use href="#nota-mark"/></svg>Nota</span>
-        <div class="pring" aria-hidden="true"></div>
-        <div class="play" aria-hidden="true"></div>
-        <div class="bar-ui" aria-hidden="true"><i></i><span>0:00</span><span>8:12</span></div>
+      <div class="vp" data-reveal style="--i:3" data-curve="2.2" data-io>
+        <video class="vp-video" playsinline preload="metadata" poster="" aria-label="Vidéo de présentation de Nota">
+          <source src="vsl.mp4" type="video/mp4">
+        </video>
+        <div class="vp-poster" aria-hidden="true"><span class="brandcap brand"><svg class="mark"><use href="#nota-mark"/></svg>Nota</span></div>
+        <button class="vp-play" type="button" aria-label="Lire la vidéo"><span class="vp-ring"></span><span class="vp-btn"></span></button>
+        <div class="vp-ui" aria-hidden="true">
+          <div class="vp-bar"><i class="vp-fill"></i><span class="vp-marks"></span></div>
+          <div class="vp-chapters">
+            <button type="button" data-at="0">Tout, en une minute</button><button type="button" data-at="75">Pour qui</button><button type="button" data-at="120">Ce que tu repars avec</button><button type="button" data-at="165">Ta micro-app</button><button type="button" data-at="205">Comment ça se passe</button><button type="button" data-at="250">Ce que ça a donné</button><button type="button" data-at="275">La Lecture</button>
+          </div>
+        </div>
+      </div>
+      <div class="vs-cta" data-reveal style="--i:4">
+        <a class="btn btn-ink" href="#reserver" data-magnet><span>Réserver ma Lecture</span> <svg class="arr"><use href="#arrow"/></svg></a>
+        <span class="vs-note">45 minutes, gratuites. Tu repars avec les trois maillons qui freinent ta marque.</span>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sp" id="construit" style="--from:#F6F6F3">
+<section class="sec" id="construit">
   <div class="wrap" data-io>
     <div class="sec-head center">
-      <span class="chip" data-reveal>Ce que Nota construit</span>
+      <span class="eyebrow" data-reveal>Ce que Nota construit</span>
       <h2 data-reveal style="--i:1">Trois choses, avec lesquelles tu <span class="hl">repars</span><span class="dotp">.</span></h2>
     </div>
-    <div class="build">
-      <div class="bc" data-reveal data-tilt style="--i:2">
-        <div class="vis">
+    <div class="b3">
+      <div class="b3-col" data-reveal style="--i:2">
+        <div class="b3-vis" data-tilt><span class="glare"></span>
           <div class="bio">
             <div class="hd"><span class="av"></span><span class="nm">Toi<small>Ta bio, réécrite</small></span></div>
             <p class="line">Une phrase qui dit ce que tu fais, <span class="hl">pour qui</span>, et pourquoi toi.</p>
             <div class="kw"><span>Ton ton</span><span>Tes couleurs</span><span>Ton angle</span></div>
           </div>
         </div>
-        <div class="txt"><span class="n">01</span><h3>Une marque qu'on reconnaît.</h3><p>On écrit ce que tu défends et ce qu'on doit retenir de toi. Puis on le rend visible : un ton, un style, une image qu'on identifie en une seconde.</p><div class="liv">Tu repars avec <b>ton socle de marque, écrit</b>.</div></div>
+        <span class="b3-n">01</span>
+        <h3>Une marque qu'on reconnaît.</h3>
+        <p>On écrit ce que tu défends et ce qu'on doit retenir de toi. Puis on le rend visible : un ton, un style, une image qu'on identifie en une seconde.</p>
+        <p class="b3-liv">Tu repars avec <b>ton socle de marque, écrit</b>.</p>
       </div>
-      <div class="bc warm" data-reveal data-tilt style="--i:3">
-        <div class="vis vis-cum"><div class="ui2 cum" data-io>
+      <div class="b3-col" data-reveal style="--i:3">
+        <div class="b3-vis b3-cum" data-tilt><span class="glare"></span><div class="ui2 cum" data-io>
           <div class="legend"><span class="lg a"><i></i>Sans système : chaque vidéo repart de zéro</span><span class="lg b"><i></i>Avec Nota : chaque vidéo construit la suivante</span></div>
           <svg class="cumsvg" viewBox="0 0 600 260" aria-hidden="true">
             <defs>
@@ -785,10 +1040,13 @@
             <g class="axis"><text x="24" y="240">Aujourd'hui</text></g>
           </svg>
                   </div></div>
-        <div class="txt"><span class="n">02</span><h3>Un contenu qui se cumule.</h3><p>Une grille : tu sais quoi publier chaque semaine, et pourquoi. Chaque vidéo construit la suivante, au lieu de repartir de zéro.</p><div class="liv">Tu repars avec <b>ta grille de contenu</b>.</div></div>
+        <span class="b3-n">02</span>
+        <h3>Un contenu qui se cumule.</h3>
+        <p>Une grille : tu sais quoi publier chaque semaine, et pourquoi. Chaque vidéo construit la suivante, au lieu de repartir de zéro.</p>
+        <p class="b3-liv">Tu repars avec <b>ta grille de contenu</b>.</p>
       </div>
-      <div class="bc" data-reveal data-tilt style="--i:4">
-        <div class="vis">
+      <div class="b3-col" data-reveal style="--i:4">
+        <div class="b3-vis" data-tilt><span class="glare"></span>
           <div class="dm">
             <div class="m">J'ai vu ta vidéo sur les tarifs. C'est exactement mon problème.</div>
             <div class="m">On peut se parler cette semaine ?</div>
@@ -796,19 +1054,22 @@
             <span class="rdv">Rendez-vous réservé · jeudi 10:00</span>
           </div>
         </div>
-        <div class="txt"><span class="n">03</span><h3>Des demandes qui arrivent seules.</h3><p>Le chemin entre une vidéo et un rendez-vous : ce que tu dis, où tu envoies, et ce qui capte l'e-mail. Les gens t'écrivent en citant ta vidéo.</p><div class="liv">Tu repars avec <b>ton chemin vers le client, installé</b>.</div></div>
+        <span class="b3-n">03</span>
+        <h3>Des demandes qui arrivent seules.</h3>
+        <p>Le chemin entre une vidéo et un rendez-vous : ce que tu dis, où tu envoies, et ce qui capte l'e-mail. Les gens t'écrivent en citant ta vidéo.</p>
+        <p class="b3-liv">Tu repars avec <b>ton chemin vers le client, installé</b>.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sp tint-warm" id="micro-app" style="--from:#FFFFFF">
+<section class="sec" id="micro-app">
   <div class="wrap" data-io>
     <div class="panel dark" data-reveal>
       <div class="blob"></div>
       <div class="mapp">
         <div style="position:relative">
-          <span class="chip on-dark">Ta micro-app</span>
+          <span class="eyebrow on-dark">Ta micro-app</span>
           <h2 style="margin-top:16px">Un outil à ton nom,<br>construit pour toi<span class="dotp">.</span></h2>
           <p class="lead" style="margin-top:16px">Une page en ligne qui rend service à ton client en trente secondes. Un calcul, un diagnostic, un simulateur, selon ton métier. Il l'utilise, il laisse son e-mail, et il te connaît avant de t'écrire.</p>
           <ul>
@@ -837,89 +1098,87 @@
   </div>
 </section>
 
-<section class="sp tint-grey" id="niveaux" style="--from:#FFFBEA">
-  <div class="wrap" data-io>
-    <div class="panel">
-      <div class="sec-head">
-        <span class="chip" data-reveal>Deux niveaux</span>
-        <h2 data-reveal style="--i:1">Nota pose les fondations.<br>Nota<i class="plus"></i> va plus loin, avec toi.</h2>
-      </div>
-      <div class="levels">
-        <div class="lvl" data-reveal data-tilt style="--i:2">
-          <span class="brand"><svg class="mark"><use href="#nota-mark"/></svg>Nota</span>
-          <div class="who">Il te manque une direction</div>
-          <p class="promise">Tu apprends à tout tenir toi-même. Je dirige.</p>
-          <ul>
-            <li><span>✓</span>Trois mois de 1:1, un appel par semaine</li>
-                        <li><span>✓</span>Ta micro-app, construite pour toi</li>
-            <li><span>✓</span>Le Discord et un appel de groupe par semaine</li>
-          </ul>
-          <a class="btn btn-ghost" href="#reserver" data-magnet><span>Réserver ma Lecture</span> <svg class="arr"><use href="#arrow"/></svg></a>
-        </div>
-        <div class="lvl lvl-plus" data-reveal data-tilt style="--i:3">
-          <span class="tag">Fait avec toi</span>
-          <span class="brand"><svg class="mark"><use href="#nota-mark"/></svg>Nota<i class="plus"></i></span>
-          <div class="who">Il te manque du temps</div>
-          <p class="promise">On fait une partie du travail ensemble. Livré, pas seulement enseigné.</p>
-          <ul>
-            <li><span>✓</span>Tout Nota, appels 1:1 sans plafond, six mois</li>
-            <li><span>✓</span>Ton socle de marque, écrit avec toi</li>
-                        <li><span>✓</span>Stratégie de contenu et tunnel d'acquisition</li>
-            <li><span>✓</span>Une journée ensemble, en présentiel</li>
-          </ul>
-          <a class="btn btn-ink" href="#reserver" data-magnet><span>Réserver ma Lecture</span> <svg class="arr"><use href="#arrow"/></svg></a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</section>
-
-<section class="sp tint-warm" id="temoignages" style="--from:#F6F6F3">
+<section class="sec" id="niveaux">
   <div class="wrap" data-io>
     <div class="sec-head">
-      <span class="chip" data-reveal>Ils en parlent</span>
+      <span class="eyebrow" data-reveal>Deux niveaux</span>
+      <h2 data-reveal style="--i:1">Nota pose les fondations.<br>Nota<i class="plus"></i> va plus loin, avec toi.</h2>
+    </div>
+    <div class="levels">
+      <div class="lvl" data-reveal data-tilt style="--i:2">
+        <span class="glare"></span>
+        <span class="brand"><svg class="mark"><use href="#nota-mark"/></svg>Nota</span>
+        <div class="who">Il te manque une direction</div>
+        <p class="promise">Tu apprends à tout tenir toi-même. Je dirige.</p>
+        <ul>
+          <li><span>✓</span>Trois mois de 1:1, un appel par semaine</li>
+          <li><span>✓</span>Ta micro-app, construite pour toi</li>
+          <li><span>✓</span>Le Discord et un appel de groupe par semaine</li>
+          <li><span>✓</span>Six mois au total</li>
+        </ul>
+        <a class="btn btn-ghost" href="#reserver" data-magnet><span>Réserver ma Lecture</span> <svg class="arr"><use href="#arrow"/></svg></a>
+      </div>
+      <div class="lvl lvl-plus" data-reveal data-tilt style="--i:3">
+        <span class="glare"></span>
+        <span class="tag">Fait pour toi</span>
+        <span class="brand"><svg class="mark"><use href="#nota-mark"/></svg>Nota<i class="plus"></i></span>
+        <div class="who">Il te manque du temps</div>
+        <p class="promise">On fait une partie du travail ensemble. Livré, pas seulement enseigné.</p>
+        <ul>
+          <li><span>✓</span>Tout Nota, appels 1:1 sans plafond, six mois</li>
+          <li><span>✓</span>Ton socle de marque, écrit avec toi</li>
+          <li><span>✓</span>Stratégie de contenu et tunnel d'acquisition</li>
+          <li><span>✓</span>Une journée ensemble, en présentiel</li>
+        </ul>
+        <a class="btn btn-ink" href="#reserver" data-magnet><span>Réserver ma Lecture</span> <svg class="arr"><use href="#arrow"/></svg></a>
+      </div>
+    </div>
+    <div class="sm" data-reveal style="--i:4">
+      <div class="sm-txt">
+        <span class="sm-k">Sur mesure</span>
+        <p class="sm-h">Pour les entreprises qui ont déjà une équipe, et pas encore de direction.</p>
+        <p class="sm-p">Contenu, acquisition, conversion. Une mission chiffrée après un premier échange.</p>
+      </div>
+      <button class="btn btn-ghost" type="button" data-open="drawer"><span>Découvrir le sur-mesure</span> <svg class="arr"><use href="#arrow"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="temoignages">
+  <div class="wrap" data-io>
+    <div class="sec-head">
+      <span class="eyebrow" data-reveal>Ils en parlent</span>
       <h2 data-reveal style="--i:1">Dans leurs mots<span class="dotp">.</span></h2>
     </div>
-    <div class="tgrid">
-      <div class="t feat" data-reveal data-tilt style="--i:2">
+    <div class="tm">
+      <div class="tm-feat" data-reveal style="--i:2">
         <div class="cmp">
           <div><span class="k">Abonnés</span><div class="bars"><i style="--h:10%"></i><i style="--h:100%"></i></div><div class="lbl"><em>400</em><b>4 000</b></div></div>
           <div><span class="k">Par mois</span><div class="bars"><i style="--h:20%"></i><i style="--h:100%"></i></div><div class="lbl"><em>1 000 €</em><b>5 000 €</b></div></div>
         </div>
-        <q>Je suis passé de 300 à 400 vues par vidéo avec 400 abonnés à plus de 4 000 abonnés, une vraie DA, des vidéos à plus de 100 000 vues, du contenu qui touche ma cible. Et un chiffre d'affaires passé de 1 000 à 5 000 € par mois sur la période d'accompagnement, grâce aux leads de la création de contenu.</q>
+        <blockquote class="tm-q big">Je suis passé de 300 à 400 vues par vidéo avec 400 abonnés à plus de 4 000 abonnés, une vraie DA, des vidéos à plus de 100 000 vues, du contenu qui touche ma cible. Et un chiffre d'affaires passé de 1 000 à 5 000 € par mois sur la période d'accompagnement, grâce aux leads de la création de contenu.</blockquote>
         <div class="who"><i>M</i>Mathis</div>
       </div>
-      <div class="t" data-reveal data-tilt style="--i:3">
-        <q>Il m'a pratiquement tout appris sur la création de contenu. Ça m'a fait gagner un temps monstre. Le suivi est excellent : présent, à l'écoute, il prend le temps de faire progresser.</q>
-        <div class="who"><i>K</i>Kirlos</div>
-      </div>
-      <div class="t" data-reveal data-tilt style="--i:4">
-        <q>J'ai commencé à construire un vrai branding, et compris qu'un business ne repose pas sur un seul élément. J'ai appris autant sur le business que sur la manière de structurer tout ce que je fais.</q>
-        <div class="who"><i>M</i>Max</div>
-      </div>
-      <div class="t" data-reveal data-tilt style="--i:5">
-        <q>Accessible quand j'avais des questions, et tu me poussais toujours à être plus productif. Les ressources sont une pépite : structures de script, tutos montage, musiques. J'en utilise encore tous les jours dans mes vidéos.</q>
-        <div class="who"><i>N</i>Naël</div>
-      </div>
-      <div class="t" data-reveal data-tilt style="--i:6">
-        <q>Travailleur, persévérant et précis, mais aussi très créatif et à l'écoute. Il comprend les besoins et s'investit pleinement. Une collaboration que je recommande sans hésiter.</q>
-        <div class="who"><i>L</i>Lilia</div>
+      <div class="tm-list">
+        <div class="tm-item" data-reveal style="--i:3"><blockquote class="tm-q">Il m'a pratiquement tout appris sur la création de contenu. Ça m'a fait gagner un temps monstre. Le suivi est excellent : présent, à l'écoute, il prend le temps de faire progresser.</blockquote><div class="who"><i>K</i>Kirlos</div></div>
+        <div class="tm-item" data-reveal style="--i:4"><blockquote class="tm-q">J'ai commencé à construire un vrai branding, et compris qu'un business ne repose pas sur un seul élément. J'ai appris autant sur le business que sur la manière de structurer tout ce que je fais.</blockquote><div class="who"><i>M</i>Max</div></div>
+        <div class="tm-item" data-reveal style="--i:5"><blockquote class="tm-q">Accessible quand j'avais des questions, et tu me poussais toujours à être plus productif. Les ressources sont une pépite : structures de script, tutos montage, musiques. J'en utilise encore tous les jours dans mes vidéos.</blockquote><div class="who"><i>N</i>Naël</div></div>
+        <div class="tm-item" data-reveal style="--i:6"><blockquote class="tm-q">Travailleur, persévérant et précis, mais aussi très créatif et à l'écoute. Il comprend les besoins et s'investit pleinement. Une collaboration que je recommande sans hésiter.</blockquote><div class="who"><i>L</i>Lilia</div></div>
       </div>
     </div>
     <a class="pod" href="https://youtu.be/VNKVbYp5hNA" target="_blank" rel="noopener" data-reveal>
       <span class="pod-thumb"><img src="data:image/jpeg;base64,__POD__" alt="Miniature du podcast de Gael avec Mathis" width="960" height="540" loading="lazy"><span class="pod-play" aria-hidden="true"></span></span>
       <span class="pod-txt">
-        <span class="chip">Podcast</span>
+        <span class="eyebrow">Podcast</span>
         <h3 class="pod-h">Mathis raconte son accompagnement, en entier.</h3>
         <span class="pod-p">De 400 à plus de 4 000 abonnés, et de 1 000 à 5 000 € par mois. Ce qui a changé, et comment.</span>
         <span class="btn btn-ink btn-sm"><span>Voir plus de témoignages</span> <svg class="arr"><use href="#arrow"/></svg></span>
       </span>
     </a>
-    <div class="band">
-      <div class="stat" data-reveal style="--i:7"><div class="n"><span data-count="10000" data-prefix="+">0</span></div><div class="l">abonnés sur mon compte Instagram, avec cette méthode</div></div>
-      <div class="stat" data-reveal style="--i:8"><div class="n"><span data-count="2" data-prefix="≈ ">0</span> M</div><div class="l">de vues pour Naël en un mois, puis un pivot de niche réussi</div></div>
-      <div class="stat" data-reveal style="--i:9"><div class="n"><span data-count="400" data-prefix="+">0</span></div><div class="l">vidéos de concurrents analysées</div></div>
+    <div class="nums">
+      <div class="num" data-reveal style="--i:7"><div class="n"><span data-count="10000" data-prefix="+">0</span></div><div class="l">abonnés sur mon compte Instagram, avec cette méthode</div></div>
+      <div class="num" data-reveal style="--i:8"><div class="n"><span data-count="2" data-prefix="≈ ">0</span> M</div><div class="l">de vues pour Naël en un mois, puis un pivot de niche réussi</div></div>
+      <div class="num" data-reveal style="--i:9"><div class="n"><span data-count="400" data-prefix="+">0</span></div><div class="l">vidéos de concurrents analysées</div></div>
     </div>
     <div class="gm" data-reveal style="--i:10">
       <span class="av">G</span>
@@ -929,13 +1188,13 @@
   </div>
 </section>
 
-<section class="sp" id="reserver" style="--from:#FFFBEA">
+<section class="sec" id="reserver">
   <div class="wrap" data-io>
     <div class="panel dark" data-reveal>
       <div class="blob"></div>
       <div class="book">
         <div style="position:relative">
-          <span class="chip on-dark">La Lecture</span>
+          <span class="eyebrow on-dark">La Lecture</span>
           <h2 style="margin-top:16px">Je lis ta marque.<br>Tu repars avec trois maillons<span class="dotp">.</span></h2>
           <p class="lead" style="margin-top:16px">Quarante-cinq minutes, gratuites. Je lis tes dix derniers contenus et je te dis les trois choses qui freinent ta marque, preuve à l'appui dans tes propres posts. Ensuite seulement, on voit si Nota ou Nota<i class="plus"></i> est le bon format.</p>
           <div class="chain" aria-label="Les six maillons qu'on lit"><span>Le rythme</span><span>Le cadre</span><span>L'accroche</span><span>La signature</span><span>L'intention</span><span>Le passage</span></div>
@@ -951,10 +1210,10 @@
   </div>
 </section>
 
-<section class="sp" id="faq" style="--from:#FFFFFF">
+<section class="sec" id="faq">
   <div class="wrap" data-io>
     <div class="sec-head center">
-      <span class="chip" data-reveal>Questions</span>
+      <span class="eyebrow" data-reveal>Questions</span>
       <h2 data-reveal style="--i:1">Avant l'appel<span class="dotp">.</span></h2>
     </div>
     <div class="faq" data-reveal style="--i:2">
@@ -966,6 +1225,32 @@
     </div>
   </div>
 </section>
+
+<div class="drawer-bg" data-close="drawer" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Le sur-mesure" aria-hidden="true" hidden>
+  <div class="drawer-in">
+    <button class="drawer-x" type="button" data-close="drawer" aria-label="Fermer">✕</button>
+    <div class="dr-left">
+      <span class="eyebrow">Sur mesure</span>
+      <h2>Vous publiez, vous vendez, et entre les deux, ça fuit<span class="dotp">.</span></h2>
+      <p class="lead">Vous avez une équipe, un budget, des contenus qui sortent. Et une faille quelque part dans le tunnel d'acquisition : des vues qui ne deviennent pas des demandes, des demandes qui ne deviennent pas des clients. Je trouve la faille, et je la répare avec vos équipes.</p>
+      <div class="dr-how">
+        <h3>Comment ça se passe</h3>
+        <ol><li>Un premier échange, pour comprendre où ça fuit.</li><li>Une proposition écrite : périmètre, livrables, calendrier.</li><li>La mission, avec vos équipes, sur place ou à distance.</li></ol>
+      </div>
+      <div class="dr-cta">
+        <a class="btn btn-ink" href="mailto:gael@notaconsulting.ch?subject=Sur%20mesure"><span>Écrire à Gael</span> <svg class="arr"><use href="#arrow"/></svg></a>
+        <span class="dr-note">gael@notaconsulting.ch. Réponse sous deux jours ouvrés.</span>
+      </div>
+    </div>
+    <div class="dr-list">
+      <div class="dr-item"><span class="dr-n">01</span><div><h3>Lecture des failles</h3><p>Un audit de ce qui fuit entre ce que vous publiez et ce que vous encaissez. Vous repartez avec les priorités, dans l'ordre.</p></div></div>
+      <div class="dr-item"><span class="dr-n">02</span><div><h3>Tunnel d'acquisition</h3><p>Le chemin entre un contenu et un client, retravaillé : pages, capture, relances. Plus de demandes, mieux qualifiées, à trafic égal.</p></div></div>
+      <div class="dr-item"><span class="dr-n">03</span><div><h3>Direction créative</h3><p>L'image de la marque reprise et rendue applicable : une ligne que votre équipe tient sans moi, sur chaque format.</p></div></div>
+      <div class="dr-item"><span class="dr-n">04</span><div><h3>Équipe de tournage</h3><p>La production organisée : qui filme, qui monte, à quel rythme, avec quelles règles. Plus de volume, sans dépendre d'une seule personne.</p></div></div>
+    </div>
+  </div>
+</aside>
 
 __FOOTER__
 
@@ -986,7 +1271,7 @@ __FOOTER__
     batch.forEach(function (el, i) {
       el.style.transitionDelay = (i * 90) + "ms";
       el.classList.add("in"); rio.unobserve(el);
-      var q = el.querySelector("q.tw"); if (q) typeQuote(q, 250 + i * 90);
+      var q = el.querySelector(".tw"); if (q) typeQuote(q, 250 + i * 90);
     });
   }, { rootMargin: "0px 0px -10% 0px", threshold: 0 });
 
@@ -1004,8 +1289,8 @@ __FOOTER__
       })(t0);
     }, wait);
   }
-  document.querySelectorAll(".t q").forEach(function (q) {
-    var text = q.textContent.trim(); q.dataset.text = text; q.className = "tw";
+  document.querySelectorAll(".t q, .tm-q").forEach(function (q) {
+    var text = q.textContent.trim(); q.dataset.text = text; q.classList.add("tw");
     q.innerHTML = '<span class="ghost"><span class="qm">« </span>' + text + '<span class="qm"> »</span></span><span class="typed"><span class="qm">« </span></span>';
     var typed = q.querySelector(".typed");
     typed.appendChild(document.createTextNode(""));
@@ -1095,7 +1380,7 @@ __FOOTER__
   // Défilement fluide (Lenis) ; si la librairie ne charge pas, le défilement natif reste
   window.addEventListener("load", function () {
     if (reduce || !window.Lenis) return;
-    var lenis = new window.Lenis({ lerp: 0.09, smoothWheel: true });
+    var lenis = new window.Lenis({ lerp: 0.09, smoothWheel: true }); window.lenis = lenis;
     document.documentElement.classList.add("lenis");
     function raf(t) { lenis.raf(t); requestAnimationFrame(raf); } requestAnimationFrame(raf);
     lenis.on("scroll", onScroll);
@@ -1104,6 +1389,47 @@ __FOOTER__
     });
   });
 })();
+
+  // Lecteur vidéo maison : barre au tempo réglable (data-curve), chapitres, sans chiffres
+  (function () {
+    var vp = document.querySelector(".vp"); if (!vp) return;
+    var v = vp.querySelector("video"), fill = vp.querySelector(".vp-fill"), marks = vp.querySelector(".vp-marks"), bar = vp.querySelector(".vp-bar");
+    var chaps = Array.prototype.slice.call(vp.querySelectorAll(".vp-chapters button"));
+    var k = parseFloat(vp.dataset.curve) || 1;
+    var disp = function (p) { return 1 - Math.pow(1 - p, k); };      // progression affichée
+    var real = function (d) { return 1 - Math.pow(1 - d, 1 / k); };  // retour vers le temps réel
+    var ready = false;
+    function place() {
+      if (!v.duration || !isFinite(v.duration)) return; ready = true;
+      marks.innerHTML = "";
+      chaps.forEach(function (b) { var at = +b.dataset.at / v.duration; if (at > 0 && at < 1) { var i = document.createElement("i"); i.style.left = (disp(at) * 100) + "%"; marks.appendChild(i); } });
+    }
+    v.addEventListener("loadedmetadata", place);
+    v.addEventListener("error", function () { vp.classList.add("soon"); var s = document.createElement("span"); s.className = "vp-soon"; s.textContent = "La vidéo arrive bientôt"; vp.appendChild(s); }, true);
+    v.addEventListener("timeupdate", function () {
+      if (!v.duration) return; var p = v.currentTime / v.duration; fill.style.width = (disp(p) * 100) + "%";
+      var cur = null; chaps.forEach(function (b) { if (v.currentTime >= +b.dataset.at) cur = b; });
+      chaps.forEach(function (b) { b.classList.toggle("on", b === cur); });
+    });
+    vp.querySelector(".vp-play").addEventListener("click", function () {
+      if (vp.classList.contains("soon")) return;
+      if (v.paused) { v.play().then(function () { vp.classList.add("playing"); vp.classList.remove("paused"); }).catch(function () {}); }
+      else { v.pause(); vp.classList.add("paused"); }
+    });
+    v.addEventListener("ended", function () { vp.classList.remove("playing", "paused"); fill.style.width = "0%"; });
+    bar.addEventListener("click", function (e) { if (!ready) return; var r = bar.getBoundingClientRect(); var d = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)); v.currentTime = real(d) * v.duration; });
+    chaps.forEach(function (b) { b.addEventListener("click", function () { if (!ready) return; v.currentTime = +b.dataset.at; if (v.paused) vp.querySelector(".vp-play").click(); }); });
+  })();
+  // Volet sur mesure
+  (function () {
+    var d = document.getElementById("drawer"), bg = document.querySelector(".drawer-bg"); if (!d) return;
+    var last = null;
+    function open() { last = document.activeElement; d.hidden = false; bg.hidden = false; void d.offsetWidth; d.classList.add("on"); bg.classList.add("on"); d.setAttribute("aria-hidden", "false"); document.body.classList.add("drawer-open"); if (window.lenis && lenis.stop) lenis.stop(); d.querySelector(".drawer-x").focus(); }
+    function close() { d.classList.remove("on"); bg.classList.remove("on"); d.setAttribute("aria-hidden", "true"); document.body.classList.remove("drawer-open"); if (window.lenis && lenis.start) lenis.start(); setTimeout(function () { d.hidden = true; bg.hidden = true; }, 460); if (last) last.focus(); }
+    document.querySelectorAll("[data-open=drawer]").forEach(function (b) { b.addEventListener("click", open); });
+    document.querySelectorAll("[data-close=drawer]").forEach(function (b) { b.addEventListener("click", close); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !d.hidden) close(); });
+  })();
 </script>
 </body>
 </html>
