@@ -922,6 +922,38 @@
     .drawer-in { padding: 22px 18px 26px; }
     .drawer h2 { font-size: 26px; }
   }
+
+  /* v22 : étiquettes rattachées à la carte, volet tactile, 320 px, zones de clic */
+  .cardwrap { position: absolute; inset: 0; margin: auto; height: max-content; width: min(380px, 92%); z-index: 3; }
+  .idcard { position: relative; inset: auto; margin: 0; width: 100%; }
+  .tagf.a, .tagf.b, .tagf.c, .tagf.d, .tagf.e, .tagf.f { left: auto; right: auto; top: auto; bottom: auto; }
+  .tagf.a { right: calc(100% - 14px); top: 14px; }
+  .tagf.b { left: calc(100% - 14px); top: 62px; }
+  .tagf.c { right: calc(100% - 14px); top: 47%; }
+  .tagf.d { left: calc(100% - 14px); top: 59%; }
+  .tagf.e { right: calc(100% - 14px); bottom: 46px; }
+  .tagf.f { left: calc(100% - 14px); bottom: 10px; }
+  .drawer { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; touch-action: pan-y; }
+  .tm > * { min-width: 0; }
+  .tm-feat .cmp, .cmp { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .foot .fcols a, .foot .brand { position: relative; }
+  .foot .fcols a::after, .foot .brand::after { content: ""; position: absolute; inset: -8px 0; }
+  @media (max-width: 600px) {
+    .hero .orbit { display: block; }
+    .cardwrap { position: relative; inset: auto; width: 100%; max-width: 420px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+    .idcard { flex: 0 0 100%; margin: 0 0 6px; }
+    .tagf.a, .tagf.b, .tagf.c, .tagf.d, .tagf.e, .tagf.f { position: static; }
+  }
+  @media (max-width: 359px) {
+    .tm-feat .cmp { grid-template-columns: 1fr; }
+    .hero .cta .btn, .vs-cta .btn { padding-inline: 14px; }
+  }
+
+  /* v22b : hero en une colonne jusqu'à 1240 px, pour que les étiquettes ne soient jamais coupées */
+  @media (max-width: 1240px) {
+    .hero .cols { grid-template-columns: 1fr; }
+    .hero .orbit { height: 460px; max-width: 520px; margin-inline: auto; width: 100%; }
+  }
 </style>
 </head>
 <body>
@@ -970,7 +1002,8 @@
 
         <div class="orbit anim" role="img" aria-label="Le parcours Nota, entouré de ce que Nota travaille avec toi">
           <div class="halo"></div>
-          <div class="idcard" data-tilt style="--d:635ms">
+          <div class="cardwrap" style="--d:635ms">
+          <div class="idcard" data-tilt>
             <span class="glare"></span>
             <div class="top"><span class="k">Ton parcours</span><span class="brand"><svg class="mark"><use href="#nota-mark"/></svg>Nota</span></div>
             <div class="steps">
@@ -989,6 +1022,7 @@
           <span class="tagf d" style="--d:1405ms">Grille de contenu</span>
           <span class="tagf e" style="--d:1515ms">Offre</span>
           <span class="tagf f" style="--d:1625ms">Marque</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1254,7 +1288,7 @@
 </section>
 
 <div class="drawer-bg" data-close="drawer" hidden></div>
-<aside class="drawer" id="drawer" aria-label="Le sur-mesure" aria-hidden="true" hidden>
+<aside class="drawer" id="drawer" data-lenis-prevent aria-label="Le sur-mesure" aria-hidden="true" hidden>
   <div class="drawer-in">
     <button class="drawer-x" type="button" data-close="drawer" aria-label="Fermer">✕</button>
     <div class="dr-left">
