@@ -1,0 +1,33 @@
+<!-- Supabase › Authentication › Emails : à coller dans « Magic link » ET dans « Confirm signup ».
+     Objet conseillé : Ton code Nota -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f0;padding:40px 16px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;">
+  <tr>
+    <td align="center">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:440px;background:#ffffff;border:1px solid #e4e4dd;border-radius:18px;">
+        <tr>
+          <td style="padding:36px 32px 8px;">
+            <div style="font-size:20px;font-weight:700;color:#0f0f0f;letter-spacing:-0.5px;">Nota</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:20px 32px 0;">
+            <div style="font-size:15px;line-height:1.5;color:#3a3a36;">Ton code pour entrer dans ton espace :</div>
+            <div style="margin:18px 0 8px;font-size:40px;font-weight:800;letter-spacing:10px;color:#0f0f0f;">{{ .Token }}</div>
+            <div style="height:6px;width:120px;background:#ffc508;border-radius:3px;"></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:28px 32px 8px;">
+            <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email" style="display:inline-block;background:#0f0f0f;color:#ffffff;text-decoration:none;font-size:15px;padding:13px 22px;border-radius:999px;">Ou ouvre ton espace directement</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:20px 32px 34px;font-size:13px;line-height:1.5;color:#7a7a73;">
+            Le code et le lien expirent dans une heure. Si tu n'as rien demandé, ignore ce mail.
+          </td>
+        </tr>
+      </table>
+      <div style="padding-top:18px;font-size:12px;color:#7a7a73;">notaconsulting.ch</div>
+    </td>
+  </tr>
+</table>

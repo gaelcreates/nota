@@ -13,3 +13,4 @@
 *.bak.html
 .DS_Store
 __pycache__/
+!.env.example
