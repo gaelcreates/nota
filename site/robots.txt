@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /connexion
-
-Sitemap: https://notaconsulting.ch/sitemap.xml

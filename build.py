@@ -157,4 +157,9 @@ doc = ('<!doctype html>\n<html lang="fr">\n<head>\n<meta charset="utf-8">\n<meta
        '<title>Se connecter · Nota</title>\n<link rel="icon" href="%s">\n%s\n%s\n</head>\n<body>\n%s\n%s\n%s\n</body>\n</html>\n') % (FAV, style, LOGIN_CSS, sprite, LOGIN_NAV, LOGIN_BODY)
 open("connexion.html", "w", encoding="utf-8").write(doc)
 
-print("build ok", len(s) // 1024, "KB + 3 pages légales")
+# La LP est servie par le projet Next.js : copie des pages dans site/public
+import shutil
+for page in ("index", "conditions-generales", "confidentialite", "mentions-legales"):
+    shutil.copy("%s.html" % page, "site/public/%s.html" % page)
+
+print("build ok", len(s) // 1024, "KB + 3 pages légales, copiées dans site/public")
