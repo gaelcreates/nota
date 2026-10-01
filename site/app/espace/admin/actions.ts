@@ -2,14 +2,19 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { DEMO, getViewer } from "@/lib/data";
+import { cookies } from "next/headers";
+import { AS_COOKIE, DEMO, getRealViewer } from "@/lib/data";
 import { supabaseServer } from "@/lib/supabase/server";
 import { DEFAULT_PRICE } from "@/lib/payment";
 import { addMonths } from "@/lib/time";
 
-async function admin() {
-  const viewer = await getViewer();
+async function requireAdmin() {
+  const viewer = await getRealViewer();
   if (viewer?.role !== "admin") throw new Error("Réservé à l'admin");
+}
+
+async function admin() {
+  await requireAdmin();
   return supabaseServer();
 }
 
@@ -152,4 +157,18 @@ export async function saveSettings(form: FormData) {
   const rows = keys.map((key) => ({ key, value: key === "iban" ? str(form, key).replace(/\s+/g, "").toUpperCase() : str(form, key) }));
   await db.from("settings").upsert(rows);
   revalidatePath("/espace", "layout");
+}
+
+// Entrer dans l'espace d'un membre : tout ce que l'admin y fait s'enregistre chez lui
+export async function enterSpace(memberId: string) {
+  await requireAdmin();
+  (await cookies()).set(AS_COOKIE, memberId, { httpOnly: true, sameSite: "lax", secure: !DEMO, path: "/", maxAge: 60 * 60 * 8 });
+  redirect("/espace");
+}
+
+export async function leaveSpace() {
+  const store = await cookies();
+  const id = store.get(AS_COOKIE)?.value;
+  store.delete(AS_COOKIE);
+  redirect(id ? `/espace/admin/membres/${id}` : "/espace/admin");
 }

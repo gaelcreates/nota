@@ -27,14 +27,10 @@ export default async function Accueil() {
   const left = daysLeft(viewer.end_date);
   const first = viewer.full_name.split(" ")[0] || "toi";
 
-  // Le parcours : le départ puis les quatre modules
-  const stations = [
-    { key: "depart", n: "D", title: "Le départ", href: "/espace/depart", total: DEPART.length, count: DEPART.filter((m) => done.has(m.key)).length },
-    ...MODULES.map((m) => ({ key: m.slug, n: m.number, title: m.title, href: `/espace/programme/${m.slug}`, total: m.lessons.length, count: m.lessons.filter((l) => done.has(l.key)).length })),
-  ];
-  const curStation = stations.findIndex((s) => s.count < s.total);
-  const total = stations.reduce((a, s) => a + s.total, 0);
-  const count = stations.reduce((a, s) => a + s.count, 0);
+  const departDone = DEPART.filter((m) => done.has(m.key)).length;
+  const lessonsDone = LESSONS.filter((l) => done.has(l.key)).length;
+  const total = DEPART.length + LESSONS.length;
+  const count = departDone + lessonsDone;
 
   // Ce qu'il reste à faire, dans l'ordre
   const queue = [
@@ -71,27 +67,44 @@ export default async function Accueil() {
           </p>
         </div>
         <Ring value={count / total}>
-          <span className="num ring-num">{Math.round((count / total) * 100)}<small>%</small></span>
+          <span className="num ring-num">{Math.round((count / total) * 100)}<span className="pct">%</span></span>
           <span className="muted small">{count} sur {total}</span>
         </Ring>
       </section>
 
       <Ruler week={week} />
 
-      <section className="journey" aria-label="Ton parcours">
-        {stations.map((s, i) => {
-          const state = s.count === s.total ? "done" : i === curStation ? "cur" : "todo";
-          return (
-            <Link key={s.key} href={s.href} className={`station ${state}`}>
-              <span className="station-n num">{state === "done" ? "✓" : s.n}</span>
-              <span className="station-txt">
-                <span className="station-title">{s.title}</span>
-                <span className="muted small num">{s.count} sur {s.total}</span>
-              </span>
-              <span className="bar"><i style={{ width: `${(s.count / s.total) * 100}%` }} /></span>
-            </Link>
-          );
-        })}
+      <section className="progress" aria-label="Ta progression">
+        <Link href="/espace/depart" className="prog">
+          <span className="prog-head">
+            <span className="prog-title">Le départ</span>
+            <span className="num prog-count">{departDone}<small>/{DEPART.length}</small></span>
+          </span>
+          <span className="segs">
+            {DEPART.map((m) => (
+              <i key={m.key} className={done.has(m.key) ? "on" : m.key === next?.key ? "cur" : ""} />
+            ))}
+          </span>
+        </Link>
+
+        <div className="prog">
+          <Link href="/espace/programme" className="prog-head">
+            <span className="prog-title">Le programme</span>
+            <span className="num prog-count">{lessonsDone}<small>/{LESSONS.length}</small></span>
+          </Link>
+          <span className="mods">
+            {MODULES.map((m) => (
+              <Link key={m.slug} href={`/espace/programme/${m.slug}`} className="mod" style={{ flexGrow: m.lessons.length }}>
+                <span className="segs">
+                  {m.lessons.map((l) => (
+                    <i key={l.key} className={done.has(l.key) ? "on" : l.key === next?.key ? "cur" : ""} />
+                  ))}
+                </span>
+                <span className="mod-label"><b className="num">{m.number}</b> <span className="t">{m.title}</span></span>
+              </Link>
+            ))}
+          </span>
+        </div>
       </section>
 
       <div className="dash-grid">

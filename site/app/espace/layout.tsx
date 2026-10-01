@@ -1,19 +1,20 @@
 import { Closed, Shell } from "@/components/Shell";
 import type { NavItem } from "@/components/Nav";
 import { PaymentGate } from "@/components/PaymentGate";
-import { getBundle, getSettings, getViewer } from "@/lib/data";
+import { getBundle, getImpersonator, getSettings, getViewer } from "@/lib/data";
+import { leaveSpace } from "@/app/espace/admin/actions";
 import { DEPART, LESSONS } from "@/lib/programme";
 import { isEnded } from "@/lib/time";
 
 export default async function EspaceLayout({ children }: { children: React.ReactNode }) {
-  const viewer = await getViewer();
+  const [viewer, admin] = await Promise.all([getViewer(), getImpersonator()]);
   if (!viewer) {
     return <Closed title="Pas d'accès" body="Cette adresse n'est reliée à aucun accompagnement. Écris à gael@notaconsulting.ch." />;
   }
-  if (viewer.role !== "admin" && isEnded(viewer.end_date)) {
+  if (!admin && viewer.role !== "admin" && isEnded(viewer.end_date)) {
     return <Closed title="C'est terminé" body="Tes six mois sont passés et ton espace est fermé. Merci pour le chemin fait ensemble." />;
   }
-  if (viewer.role !== "admin" && !viewer.paid) {
+  if (!admin && viewer.role !== "admin" && !viewer.paid) {
     return <PaymentGate viewer={viewer} settings={await getSettings()} />;
   }
 
@@ -35,6 +36,12 @@ export default async function EspaceLayout({ children }: { children: React.React
 
   return (
     <Shell viewer={viewer} items={items}>
+      {admin && (
+        <form action={leaveSpace} className="as-bar">
+          <span><span className="as-dot" aria-hidden="true" />Tu es dans l&apos;espace de <strong>{viewer.full_name || viewer.email}</strong>. Ce que tu modifies s&apos;enregistre dans son espace.</span>
+          <button type="submit" className="btn btn-sm">Revenir à l&apos;admin</button>
+        </form>
+      )}
       {children}
     </Shell>
   );

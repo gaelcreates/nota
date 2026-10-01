@@ -57,6 +57,8 @@ export function bundle(id: string): Bundle {
       { item_key: "da", status: "en_cours", link: null },
     ],
     answers: [
+      { item_key: "d.miro", answer: "https://miro.com/app/board/exemple=/", updated_at: d(29) },
+      { item_key: "d.trois", answer: "Personne 1 : elle aide les indépendantes à trouver des clients.\nPersonne 2 : une coach business, je crois.\nPersonne 3 : elle fait des vidéos de conseils.", updated_at: d(28) },
       { item_key: "m1.1", answer: "Perçue aujourd'hui : la coach sympa qui poste des conseils.\nVoulue dans six mois : la référence qui fait passer les indépendantes à leur premier vrai client.", updated_at: d(20) },
       { item_key: "m1.2", answer: "Je voudrais vivre de mon activité, parce que j'ai quitté un salaire pour ça, mais personne ne sait vraiment ce que je fais.", updated_at: d(14) },
       { item_key: "m1.3", answer: "Croyance : on vend mieux en montrant qu'en expliquant.\nPrincipes : la preuve avant la promesse, la régularité avant le volume, la clarté avant le style.\nEnnemi : les conseils génériques.\nFaiblesse : je parle lentement, et je l'assume.", updated_at: d(8) },

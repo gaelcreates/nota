@@ -2,7 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { DEMO, getViewer } from "@/lib/data";
+import { cookies } from "next/headers";
+import { AS_COOKIE, DEMO, getImpersonator, getViewer } from "@/lib/data";
 import { supabaseServer } from "@/lib/supabase/server";
 
 async function me() {
@@ -33,6 +34,7 @@ export async function setMissionLink(key: string, link: string) {
 }
 
 export async function signOut() {
+  (await cookies()).delete(AS_COOKIE);
   if (!DEMO) {
     const db = await supabaseServer();
     await db.auth.signOut();
@@ -55,8 +57,10 @@ export async function saveAnswer(key: string, answer: string) {
 
 export async function updateMyName(form: FormData) {
   if (DEMO) return;
-  await me();
+  const viewer = await me();
   const db = await supabaseServer();
-  await db.rpc("update_my_name", { new_name: String(form.get("full_name") ?? "") });
+  const name = String(form.get("full_name") ?? "").trim().slice(0, 80);
+  if (await getImpersonator()) await db.from("members").update({ full_name: name }).eq("id", viewer.id);
+  else await db.rpc("update_my_name", { new_name: name });
   revalidatePath("/espace", "layout");
 }

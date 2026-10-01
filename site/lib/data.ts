@@ -1,5 +1,6 @@
 import "server-only";
 import { cache } from "react";
+import { cookies } from "next/headers";
 import { supabaseServer } from "@/lib/supabase/server";
 import type { Offer } from "@/lib/programme";
 import * as demo from "@/lib/demo";
@@ -46,7 +47,7 @@ export type Bundle = {
 };
 
 // La personne connectée, une seule lecture par requête
-export const getViewer = cache(async (): Promise<Member | null> => {
+export const getRealViewer = cache(async (): Promise<Member | null> => {
   if (DEMO) return process.env.NOTA_DEMO_AS === "membre" ? demo.other : demo.viewer;
   const db = await supabaseServer();
   const { data: auth } = await db.auth.getClaims();
@@ -54,6 +55,25 @@ export const getViewer = cache(async (): Promise<Member | null> => {
   const { data } = await db.from("members").select("*").eq("user_id", auth.claims.sub).maybeSingle();
   if (data) db.rpc("touch_last_seen").then(() => undefined);
   return (data as Member) ?? null;
+});
+
+// L'admin peut entrer dans l'espace d'un membre : le cookie AS_COOKIE porte l'id du membre.
+// Il n'est lu que si la vraie personne connectée est admin (et la base le revérifie par RLS).
+export const AS_COOKIE = "nota_as";
+
+export const getImpersonator = cache(async (): Promise<Member | null> => {
+  const real = await getRealViewer();
+  if (real?.role !== "admin") return null;
+  const id = (await cookies()).get(AS_COOKIE)?.value;
+  if (!id || id === real.id) return null;
+  return (await getMember(id)) ? real : null;
+});
+
+// La personne dont on affiche l'espace : soi-même, ou le membre ouvert par l'admin
+export const getViewer = cache(async (): Promise<Member | null> => {
+  const real = await getRealViewer();
+  if (!(await getImpersonator())) return real;
+  return getMember((await cookies()).get(AS_COOKIE)!.value);
 });
 
 export const getBundle = cache(async (memberId: string): Promise<Bundle> => {
@@ -114,9 +134,9 @@ export async function listMembers(): Promise<MemberRow[]> {
   });
 }
 
-export async function getMember(id: string): Promise<Member | null> {
+export const getMember = cache(async (id: string): Promise<Member | null> => {
   if (DEMO) return demo.members.find((m) => m.id === id) ?? null;
   const db = await supabaseServer();
   const { data } = await db.from("members").select("*").eq("id", id).maybeSingle();
   return (data as Member) ?? null;
-}
+});

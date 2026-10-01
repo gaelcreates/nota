@@ -100,7 +100,7 @@ export default async function Admin({ searchParams }: PageProps<"/espace/admin">
 
       <section className="section" style={{ marginTop: 18 }}>
         {shown.length === 0 ? (
-          <p className="empty">{members.length === 0 ? "Personne pour l'instant. Invite ton premier membre avec le bouton en haut." : "Personne dans cette liste."}</p>
+          <p className="empty-note">{members.length === 0 ? "Personne pour l'instant. Invite ton premier membre avec le bouton en haut." : "Personne dans cette liste."}</p>
         ) : (
           <div className="table-wrap">
             <table className="table">

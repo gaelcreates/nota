@@ -73,16 +73,18 @@ export default async function Depart() {
 
                     <details className="how" open={isNext}>
                       <summary>Comment faire</summary>
-                      <ol className="how-steps">{m.how.map((s) => <li key={s}>{s}</li>)}</ol>
-                      {m.action && (href ? (
-                        m.action.href ? (
-                          <Link href={href} className="btn btn-sm">{m.action.label}</Link>
+                      <div className="how-body">
+                        <ol className="how-steps">{m.how.map((s) => <li key={s}>{s}</li>)}</ol>
+                        {m.action && (href ? (
+                          m.action.href ? (
+                            <Link href={href} className="btn btn-sm">{m.action.label}</Link>
+                          ) : (
+                            <a href={href} className="btn btn-sm" target="_blank" rel="noopener noreferrer">{m.action.label} ↗</a>
+                          )
                         ) : (
-                          <a href={href} className="btn btn-sm" target="_blank" rel="noopener noreferrer">{m.action.label} ↗</a>
-                        )
-                      ) : (
-                        <p className="muted small">Le lien arrive. Gael te l&apos;envoie en attendant.</p>
-                      ))}
+                          <p className="muted small">Le lien arrive. Gael te l&apos;envoie en attendant.</p>
+                        ))}
+                      </div>
                     </details>
 
                     {m.input && (
