@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { Ring } from "@/components/Ring";
-import { Ruler } from "@/components/Ruler";
+import { OfferName } from "@/components/Offer";
 import { getBundle, getGroupSessions, getSettings, getViewer } from "@/lib/data";
 import { MICRO_STEPS, MICRO_TASKS } from "@/lib/microapp";
 import { DEPART, LESSONS, MODULES, ONE_TO_ONE_WEEKS, THEMES } from "@/lib/programme";
-import { daysLeft, fmt, today, weekOf } from "@/lib/time";
+import { fmt, today, weekOf } from "@/lib/time";
 
 const lessonHref = (l: (typeof LESSONS)[number]) => `/espace/programme/${l.module.slug}/${l.key.split(".")[1]}`;
 
@@ -24,7 +24,6 @@ export default async function Accueil() {
   ]);
   const done = new Set(completions.map((c) => c.item_key));
   const week = weekOf(viewer.start_date);
-  const left = daysLeft(viewer.end_date);
   const first = viewer.full_name.split(" ")[0] || "toi";
 
   const departDone = DEPART.filter((m) => done.has(m.key)).length;
@@ -60,7 +59,7 @@ export default async function Accueil() {
     <div className="rise">
       <section className="dash-hero">
         <div className="dash-hello">
-          <p className="label">Semaine {week} sur 26 · {left > 0 ? `${left} jours restants` : "dernier jour"}</p>
+          <p className="label">Ton espace <OfferName offer={viewer.offer} /></p>
           <h1 className="display">Bonjour <span className="hl">{first}</span>.</h1>
           <p className="dash-sub">
             {next ? <>Ta prochaine mission : <Link href={next.href} className="link ink">{next.title}</Link>.</> : "Tout est coché. On se voit au prochain appel."}
@@ -71,8 +70,6 @@ export default async function Accueil() {
           <span className="muted small">{count} sur {total}</span>
         </Ring>
       </section>
-
-      <Ruler week={week} />
 
       <section className="progress" aria-label="Ta progression">
         <Link href="/espace/depart" className="prog">
