@@ -12,9 +12,10 @@ type Props = {
   meta?: React.ReactNode;
   extra?: React.ReactNode;
   readOnly?: boolean;
+  children?: React.ReactNode;
 };
 
-export function MissionRow({ itemKey, title, body, done, link, meta, extra, readOnly }: Props) {
+export function MissionRow({ itemKey, title, body, done, link, meta, extra, readOnly, children }: Props) {
   const [pending, start] = useTransition();
   const [isDone, setDone] = useOptimistic(done);
   const [value, setValue] = useState(link ?? "");
@@ -75,6 +76,7 @@ export function MissionRow({ itemKey, title, body, done, link, meta, extra, read
             )}
           </div>
         )}
+        {children}
       </div>
       {meta && <div className="row-meta">{meta}</div>}
     </div>

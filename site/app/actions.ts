@@ -32,27 +32,6 @@ export async function setMissionLink(key: string, link: string) {
   revalidatePath("/espace", "layout");
 }
 
-const toInt = (v: FormDataEntryValue | null) => {
-  const n = Number(String(v ?? "").replace(/[^\d]/g, ""));
-  return String(v ?? "").trim() === "" || Number.isNaN(n) ? null : n;
-};
-
-export async function saveMetrics(period: string, form: FormData) {
-  if (DEMO) return;
-  const viewer = await me();
-  const db = await supabaseServer();
-  await db.from("metrics").upsert({
-    member_id: viewer.id,
-    period,
-    views: toInt(form.get("views")),
-    messages: toInt(form.get("messages")),
-    subscribers: toInt(form.get("subscribers")),
-    meetings: toInt(form.get("meetings")),
-    updated_at: new Date().toISOString(),
-  });
-  revalidatePath("/espace", "layout");
-}
-
 export async function signOut() {
   if (!DEMO) {
     const db = await supabaseServer();

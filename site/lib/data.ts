@@ -24,13 +24,6 @@ export type Member = {
 };
 export type Completion = { item_key: string; link: string | null; done_at: string };
 export type Answer = { item_key: string; answer: string; updated_at: string };
-export type Metric = {
-  period: "depart" | "m3" | "m6";
-  views: number | null;
-  messages: number | null;
-  subscribers: number | null;
-  meetings: number | null;
-};
 export type Call = {
   id: string;
   held_on: string;
@@ -46,7 +39,6 @@ export type Settings = Record<string, string>;
 
 export type Bundle = {
   completions: Completion[];
-  metrics: Metric[];
   calls: Call[];
   microapp: Microapp | null;
   deliveries: Delivery[];
@@ -67,9 +59,8 @@ export const getViewer = cache(async (): Promise<Member | null> => {
 export const getBundle = cache(async (memberId: string): Promise<Bundle> => {
   if (DEMO) return demo.bundle(memberId);
   const db = await supabaseServer();
-  const [c, m, k, a, d, w] = await Promise.all([
+  const [c, k, a, d, w] = await Promise.all([
     db.from("completions").select("item_key, link, done_at").eq("member_id", memberId),
-    db.from("metrics").select("period, views, messages, subscribers, meetings").eq("member_id", memberId),
     db.from("calls").select("id, held_on, title, recording_url, summary, next_steps").eq("member_id", memberId).order("held_on", { ascending: false }),
     db.from("microapps").select("level, step, url, note").eq("member_id", memberId).maybeSingle(),
     db.from("deliveries").select("item_key, status, link").eq("member_id", memberId),
@@ -77,7 +68,6 @@ export const getBundle = cache(async (memberId: string): Promise<Bundle> => {
   ]);
   return {
     completions: (c.data as Completion[]) ?? [],
-    metrics: (m.data as Metric[]) ?? [],
     calls: (k.data as Call[]) ?? [],
     microapp: (a.data as Microapp) ?? null,
     deliveries: (d.data as Delivery[]) ?? [],
@@ -100,19 +90,27 @@ export const getGroupSessions = cache(async (): Promise<GroupSession[]> => {
 });
 
 // ─── Admin ──────────────────────────────────────────────────
-export type MemberRow = Member & { done: string[]; last_done: string | null };
+export type MemberRow = Member & { done: string[]; last_done: string | null; micro_step: number | null; written: number };
 
 export async function listMembers(): Promise<MemberRow[]> {
   if (DEMO) return demo.members;
   const db = await supabaseServer();
-  const [{ data: members }, { data: done }] = await Promise.all([
+  const [{ data: members }, { data: done }, { data: apps }, { data: written }] = await Promise.all([
     db.from("members").select("*").order("created_at", { ascending: false }),
     db.from("completions").select("member_id, item_key, done_at"),
+    db.from("microapps").select("member_id, step"),
+    db.from("answers").select("member_id, item_key"),
   ]);
   return ((members as Member[]) ?? []).map((m) => {
     const mine = (done ?? []).filter((d) => d.member_id === m.id);
     const last = mine.map((d) => d.done_at).sort().at(-1) ?? null;
-    return { ...m, done: mine.map((d) => d.item_key), last_done: last };
+    return {
+      ...m,
+      done: mine.map((d) => d.item_key),
+      last_done: last,
+      micro_step: (apps ?? []).find((a) => a.member_id === m.id)?.step ?? null,
+      written: (written ?? []).filter((w) => w.member_id === m.id).length,
+    };
   });
 }
 

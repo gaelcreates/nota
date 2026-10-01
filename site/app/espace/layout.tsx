@@ -29,7 +29,6 @@ export default async function EspaceLayout({ children }: { children: React.React
     { href: "/espace/ma-marque", label: "Ma marque" },
     { href: "/espace/appels", label: "Appels" },
     { href: "/espace/micro-app", label: "Micro-app" },
-    { href: "/espace/progression", label: "Tes chiffres" },
   ];
   if (viewer.offer === "nota_plus") items.push({ href: "/espace/pour-toi", label: "Fait pour toi" });
   if (viewer.role === "admin") items.push({ href: "/espace/admin", label: "Admin", sep: true });

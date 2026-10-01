@@ -10,19 +10,24 @@ export const OFFERS: Record<Offer, string> = {
 };
 
 // ─── Le départ : avant le premier appel ─────────────────────
+// how : le pas-à-pas affiché sous la mission. input : ce que le membre dépose dans son espace
+// (un lien vers son document, ou un texte écrit directement).
 export type Mission = {
   key: string;
   title: string;
   minutes: number;
   body: string;
   group: "jour1" | "semaine1" | "bonus";
+  where: string;
+  how: string[];
+  input?: { kind: "link" | "text"; placeholder: string };
   action?: { label: string; setting?: string; href?: string };
 };
 
 export const DEPART_GROUPS = [
-  { key: "jour1", title: "Jour 1" },
-  { key: "semaine1", title: "Semaine 1" },
-  { key: "bonus", title: "Si tu as de l'avance" },
+  { key: "jour1", title: "Jour 1", body: "Quatre missions pour poser la base. Fais-les dans l'ordre." },
+  { key: "semaine1", title: "Semaine 1", body: "La matière dont on se sert pendant tout le module 01." },
+  { key: "bonus", title: "Si tu as de l'avance", body: "Pas obligatoire avant le premier appel." },
 ] as const;
 
 export const DEPART: Mission[] = [
@@ -31,7 +36,17 @@ export const DEPART: Mission[] = [
     group: "jour1",
     title: "Copie ton Miro",
     minutes: 5,
-    body: "Duplique le modèle « Ta marque » sur ton tableau. Tout le module 01 s'y remplit.",
+    where: "Miro",
+    body: "Ton tableau de marque. Le départ et tout le module 01 s'y remplissent.",
+    how: [
+      "Crée un compte Miro gratuit si tu n'en as pas.",
+      "Ouvre le modèle avec le bouton ci-dessous.",
+      "Clique sur le nom du tableau, en haut à gauche, puis « Dupliquer ».",
+      "Renomme ta copie « Ma marque · ton prénom ».",
+      "Partage-la avec gael@notaconsulting.ch, en éditeur.",
+      "Colle le lien de ta copie ici.",
+    ],
+    input: { kind: "link", placeholder: "Lien de ta copie Miro" },
     action: { label: "Ouvrir le modèle", setting: "miro_url" },
   },
   {
@@ -39,22 +54,44 @@ export const DEPART: Mission[] = [
     group: "jour1",
     title: "Le test des trois",
     minutes: 5,
-    body: "Envoie à trois personnes qui te suivent : « décris-moi en une phrase ». Les réponses arrivent pendant que tu fais le reste.",
+    where: "Messages privés",
+    body: "Ce que les gens retiennent de toi, avant qu'on travaille ta marque.",
+    how: [
+      "Choisis trois personnes qui te suivent. Pas ta famille, pas tes amis proches.",
+      "Envoie-leur : « Décris-moi en une phrase : ce que je fais, et pour qui. Sois honnête. »",
+      "Ne corrige rien et ne réponds pas sur le fond.",
+      "Recopie leurs trois phrases exactes ci-dessous, au fur et à mesure.",
+    ],
+    input: { kind: "text", placeholder: "Personne 1 : \nPersonne 2 : \nPersonne 3 : " },
   },
   {
     key: "d.photo",
     group: "jour1",
     title: "Ta photo de départ",
     minutes: 10,
-    body: "Capture ton profil et note tes quatre chiffres des trente derniers jours. On refait la même photo à trois et six mois.",
-    action: { label: "Noter mes chiffres", href: "/espace/progression" },
+    where: "Instagram",
+    body: "L'état de ton compte aujourd'hui. On refait la même photo à trois et six mois.",
+    how: [
+      "Fais une capture de ton profil : photo, bio, lien, premiers posts. Range-la sur ton Miro.",
+      "Ouvre tes statistiques et choisis les trente derniers jours.",
+      "Note les quatre chiffres ci-dessous. Zéro est une vraie réponse.",
+    ],
+    input: { kind: "text", placeholder: "Vues : \nMessages reçus : \nInscrits e-mail : \nRendez-vous obtenus : " },
   },
   {
     key: "d.questionnaire",
     group: "jour1",
     title: "Le questionnaire",
     minutes: 60,
-    body: "Les 52 questions, en deux fois si tu préfères. Partage ta copie avec Gael avant le premier appel.",
+    where: "Google Docs",
+    body: "Les 52 questions qui préparent ton premier appel.",
+    how: [
+      "Ouvre le questionnaire : Google te propose d'en faire une copie, accepte.",
+      "Réponds dans ta copie. En deux fois si tu préfères.",
+      "Partage ta copie avec gael@notaconsulting.ch, droit de commentaire.",
+      "Colle le lien de ta copie ici, au plus tard la veille du premier appel.",
+    ],
+    input: { kind: "link", placeholder: "Lien de ta copie du questionnaire" },
     action: { label: "Faire ma copie", setting: "questionnaire_url" },
   },
   {
@@ -62,42 +99,88 @@ export const DEPART: Mission[] = [
     group: "semaine1",
     title: "Tes dix derniers posts",
     minutes: 30,
-    body: "Un tableau : sujet, format, accroche, vues, partages, enregistrements, abonnés gagnés.",
+    where: "Google Sheets",
+    body: "Ce qui marche déjà chez toi, en chiffres. La base de ta grille au module 03.",
+    how: [
+      "Crée un tableau avec ces colonnes : sujet, format, accroche, vues, partages, enregistrements, abonnés gagnés.",
+      "Dans les statistiques de chaque post, recopie les chiffres. Une ligne par post.",
+      "Surligne les deux posts qui ont le mieux marché.",
+      "Partage le tableau avec gael@notaconsulting.ch et colle son lien ici.",
+    ],
+    input: { kind: "link", placeholder: "Lien de ton tableau" },
   },
   {
     key: "d.verbatims",
     group: "semaine1",
     title: "Ta banque de verbatims",
     minutes: 45,
-    body: "Vingt phrases exactes de clients ou de prospects. Classées en trois : douleur, désir, objection.",
+    where: "Ton espace",
+    body: "Les mots exacts de tes clients. Tes accroches et ton offre viendront de là.",
+    how: [
+      "Relis tes messages privés, tes commentaires, tes avis et tes notes d'appels.",
+      "Copie les phrases mot pour mot. Ne les reformule pas.",
+      "Range chacune dans une des trois familles : douleur, désir, objection.",
+      "Vise vingt phrases au total.",
+    ],
+    input: { kind: "text", placeholder: "Douleur\n« … »\n\nDésir\n« … »\n\nObjection\n« … »" },
   },
   {
     key: "d.preuves",
     group: "semaine1",
     title: "Ta banque de preuves",
     minutes: 30,
-    body: "Un dossier, une capture par preuve : avis, résultats, chiffres, avant et après, mentions.",
+    where: "Google Drive",
+    body: "Tout ce qui prouve que tu tiens ta promesse. On en empile cinq au module 01.",
+    how: [
+      "Crée un dossier « Preuves » dans ton Drive.",
+      "Une capture par preuve : avis, message de client, résultat, chiffre, avant et après, mention.",
+      "Nomme chaque fichier : le client, la date, ce que ça prouve.",
+      "Partage le dossier avec gael@notaconsulting.ch et colle son lien ici.",
+    ],
+    input: { kind: "link", placeholder: "Lien de ton dossier" },
   },
   {
     key: "d.inconnu",
     group: "semaine1",
     title: "Le parcours de l'inconnu",
     minutes: 20,
-    body: "Depuis un téléphone qui ne te suit pas : un post, ton profil, ton lien, jusqu'à pouvoir te parler. Note où ça bloque.",
+    where: "Ton téléphone",
+    body: "Le chemin d'un inconnu jusqu'à toi. Là où il bloque, tu perds des clients.",
+    how: [
+      "Ouvre Instagram sur un téléphone qui ne te suit pas, ou déconnecté.",
+      "Trouve un de tes posts comme le ferait un inconnu.",
+      "Va sur ton profil, clique ton lien, essaie de te contacter ou de réserver.",
+      "Note chaque endroit où tu hésites, attends ou bloques.",
+    ],
+    input: { kind: "text", placeholder: "Le post : \nLe profil : \nLe lien : \nLe contact : \nOù ça bloque : " },
   },
   {
     key: "d.concurrents",
     group: "bonus",
     title: "Trois concurrents",
     minutes: 40,
-    body: "Bio, offre visible, prix s'il est affiché, lien en bio, leurs trois posts les plus vus.",
+    where: "Ton espace",
+    body: "Ce que ta cible voit ailleurs. On s'en sert pour ta différence et ton prix.",
+    how: [
+      "Choisis trois comptes qui parlent à la même cible que toi.",
+      "Pour chacun : bio, offre visible, prix s'il est affiché, lien en bio.",
+      "Trie leurs posts par vues et note les trois premiers.",
+    ],
+    input: { kind: "text", placeholder: "Compte 1 : \nBio : \nOffre : \nPrix : \nLien en bio : \nTrois posts les plus vus : \n\nCompte 2 : …" },
   },
   {
     key: "d.moodboard",
     group: "bonus",
     title: "Ton moodboard",
     minutes: 30,
-    body: "Quinze images sur ton Miro : lieux, lumière, tenues, typos, couleurs.",
+    where: "Miro",
+    body: "L'univers visuel que tu veux voir sur ton compte. La base de ta charte.",
+    how: [
+      "Quinze images, pas plus.",
+      "Cinq familles : lieux, lumière, tenues, typos, couleurs.",
+      "Colle-les sur ton Miro, dans la zone « Moodboard ».",
+      "Garde seulement ce que tu voudrais voir sur ton propre compte.",
+    ],
   },
 ];
 
@@ -200,7 +283,7 @@ export const THEMES = [
   { key: "chiffres", title: "Chiffres", body: "Tes quatre chiffres, le maillon qui casse." },
 ];
 
-// ─── Micro-app ──────────────────────────────────────────────
+// ─── Micro-app : les six étapes (le détail vit dans lib/microapp.ts) ───
 export const MICROAPP_STEPS = [
   { title: "Tes infos", body: "Le Doc infos, rempli." },
   { title: "Tes comptes", body: "Créés à ton nom." },
@@ -226,20 +309,6 @@ export const DELIVERY_STATUS = {
   en_cours: "En cours",
   livre: "Livré",
 } as const;
-
-// ─── Les quatre chiffres ────────────────────────────────────
-export const METRICS = [
-  { key: "views", label: "Vues" },
-  { key: "messages", label: "Messages" },
-  { key: "subscribers", label: "Inscrits e-mail" },
-  { key: "meetings", label: "Rendez-vous" },
-] as const;
-
-export const PERIODS = [
-  { key: "depart", label: "Départ", week: 1 },
-  { key: "m3", label: "3 mois", week: 13 },
-  { key: "m6", label: "6 mois", week: 26 },
-] as const;
 
 export const TOTAL_WEEKS = 26;
 export const ONE_TO_ONE_WEEKS = 13;

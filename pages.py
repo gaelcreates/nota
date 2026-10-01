@@ -97,7 +97,7 @@ STEPS_CONFIRME = steps([
     ("Comme tu es", "Je n'ai pas besoin que ton compte soit propre. J'ai besoin qu'il soit vrai."),
 ])
 STEPS_BIENVENUE = steps([
-    ("Ouvre ton espace", '<a href="/connexion">notaconsulting.ch/connexion</a>, avec l\'adresse de ton inscription. Pas de mot de passe : un code arrive par mail.'),
+    ("Ouvre ton espace", '<a href="/connexion">notaconsulting.ch/connexion</a>, avec l\'adresse de ton inscription. Pas de mot de passe : un lien de connexion arrive par mail.'),
     ("Réserve ton premier appel", "Le lien est dans ton espace. Dans les sept jours, pour reprendre ta Lecture et fixer le plan."),
     ("Fais ton départ", "Des missions t'attendent dans ton espace."),
 ])
@@ -186,7 +186,7 @@ BIENVENUE = f'''<header class="sec xp-hero" id="top">
       <div class="xp-one">
         <div>
           <h2>Ton espace t'attend<span class="dotp">.</span></h2>
-          <p class="lead">Programme, missions, appels, micro-app et tes chiffres, au même endroit.</p>
+          <p class="lead">Ton départ, le programme, tes appels et ta micro-app, au même endroit.</p>
         </div>
         <a class="btn btn-accent" href="/connexion" data-magnet><span>Ouvrir mon espace</span> <svg class="arr"><use href="#arrow"/></svg></a>
       </div>

@@ -5,7 +5,7 @@ Un seul projet Vercel « nota » sur `notaconsulting.ch` :
 - l'espace membre sous `/espace`, la connexion sur `/connexion`.
 
 - Next.js 16 (App Router, `proxy.ts`), Supabase (projet « Nota »), Vercel.
-- Connexion sans mot de passe : code à 6 chiffres ou lien par e-mail. Seules les adresses invitées depuis l'admin peuvent entrer.
+- Connexion sans mot de passe : un lien par e-mail. Seules les adresses invitées depuis l'admin peuvent entrer.
 - Accès fermé automatiquement à la date de fin (six mois après le début).
 
 ## Lancer en local
@@ -20,7 +20,8 @@ Pour regarder l'interface sans base : `NOTA_DEMO=1 npm run dev` (données d'exem
 
 ## Où est quoi
 
-- `lib/programme.ts` : le départ, les 4 modules et leurs missions, les thèmes de groupe, les étapes micro-app, les livraisons Nota+. Pour ajouter une vidéo à une leçon : champ `video`.
+- `lib/programme.ts` : le départ (pas-à-pas et champ à remplir par mission), les 4 modules et leurs missions, les thèmes de groupe, les livraisons Nota+. Pour ajouter une vidéo à une leçon : champ `video`.
+- `lib/microapp.ts` : la micro-app en six étapes (tâches cochables `ma.*`, champs écrits, coûts). L'étape en cours est réglée par l'admin dans la fiche du membre.
 - `supabase/schema.sql` : tables, sécurité ligne par ligne, admin de départ.
 - `supabase/email-connexion.html` : le mail de connexion à coller dans Supabase.
 - `app/espace` : les pages membres. `app/espace/admin` : membres, appels de groupe, réglages.

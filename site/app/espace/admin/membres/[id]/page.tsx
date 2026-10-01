@@ -6,8 +6,9 @@ import { Confirm } from "@/components/Confirm";
 import { OfferName, Plus } from "@/components/Offer";
 import { Submit } from "@/components/Submit";
 import { getBundle, getMember } from "@/lib/data";
-import { DELIVERIES, DELIVERY_STATUS, DEPART, METRICS, MICROAPP_STEPS, MODULES, PERIODS } from "@/lib/programme";
-import { fmt, weekOf } from "@/lib/time";
+import { MICRO_STEPS } from "@/lib/microapp";
+import { DELIVERIES, DELIVERY_STATUS, DEPART, LESSONS, MICROAPP_STEPS, MODULES } from "@/lib/programme";
+import { daysLeft, fmt, weekOf } from "@/lib/time";
 
 export async function generateMetadata({ params }: PageProps<"/espace/admin/membres/[id]">) {
   const m = await getMember((await params).id);
@@ -18,7 +19,12 @@ export default async function MemberPage({ params }: PageProps<"/espace/admin/me
   const { id } = await params;
   const m = await getMember(id);
   if (!m) notFound();
-  const { completions, metrics, calls, microapp, deliveries } = await getBundle(id);
+  const { completions, calls, microapp, deliveries, answers } = await getBundle(id);
+  const answer = new Map(answers.filter((a) => a.answer.trim()).map((a) => [a.item_key, a]));
+  const dep = DEPART.filter((d) => byKeyHas(completions, d.key)).length;
+  const les = LESSONS.filter((l) => byKeyHas(completions, l.key)).length;
+  const step = microapp?.step ?? 0;
+  const left = daysLeft(m.end_date);
   const byKey = new Map(completions.map((c) => [c.item_key, c]));
   const dByKey = new Map(deliveries.map((d) => [d.item_key, d]));
 
@@ -44,6 +50,29 @@ export default async function MemberPage({ params }: PageProps<"/espace/admin/me
         </div>
         <p>{m.email}</p>
       </header>
+
+      <section className="kpis">
+        <div className={`kpi${!m.paid || balance(m) > 0 ? " kpi-warn" : ""}`}>
+          <span className="label">Paiement</span>
+          <span className="kpi-num num">{balance(m) > 0 ? money(balance(m)) : "Payé"}</span>
+          <span className="muted small">{balance(m) > 0 ? `Solde · ${money(m.paid_amount)} versés sur ${money(m.price ?? 0)}` : `${money(m.paid_amount)} versés`}{m.paid ? "" : " · accès fermé"}</span>
+        </div>
+        <div className="kpi">
+          <span className="label">Le départ</span>
+          <span className="kpi-num num">{dep}<small>/{DEPART.length}</small></span>
+          <span className="bar"><i style={{ width: `${(dep / DEPART.length) * 100}%` }} /></span>
+        </div>
+        <div className="kpi">
+          <span className="label">Programme</span>
+          <span className="kpi-num num">{les}<small>/{LESSONS.length}</small></span>
+          <span className="bar"><i style={{ width: `${(les / LESSONS.length) * 100}%` }} /></span>
+        </div>
+        <div className="kpi">
+          <span className="label">Fin de l&apos;accès</span>
+          <span className="kpi-num num">{left < 0 ? "Terminé" : `J-${left}`}</span>
+          <span className="muted small">{fmt.full(m.end_date)}</span>
+        </div>
+      </section>
 
       <section className="section">
         <div className="section-head">
@@ -83,23 +112,37 @@ export default async function MemberPage({ params }: PageProps<"/espace/admin/me
       </section>
 
       <section className="section">
-        <div className="section-head"><h2>Ses chiffres</h2></div>
-        <div className="table-wrap">
-          <table className="table">
-            <thead><tr><th />{METRICS.map((k) => <th key={k.key}>{k.label}</th>)}</tr></thead>
-            <tbody>
-              {PERIODS.map((p) => {
-                const row = metrics.find((x) => x.period === p.key);
+        <div className="section-head" id="ecrit"><h2>Ses réponses</h2><span className="muted">{answer.size} réponses</span></div>
+        {answer.size === 0 ? (
+          <p className="empty">Rien d&apos;écrit pour l&apos;instant.</p>
+        ) : (
+          <div className="written">
+            {[
+              ...DEPART.map((d) => ({ key: d.key, title: d.title, group: "Le départ" })),
+              ...LESSONS.map((l) => ({ key: l.key, title: l.title, group: `Leçon ${l.module.number}·${l.key.split(".")[1]}` })),
+              ...MICRO_STEPS.flatMap((st) => (st.fields ?? []).map((f) => ({ key: f.key, title: f.label, group: `Micro-app · ${st.title}` }))),
+            ]
+              .filter((x) => answer.has(x.key))
+              .map((x) => {
+                const a = answer.get(x.key)!;
+                const isLink = /^https?:\/\/\S+$/.test(a.answer.trim());
                 return (
-                  <tr key={p.key}>
-                    <td>{p.label}</td>
-                    {METRICS.map((k) => <td key={k.key} className="num">{row?.[k.key] != null ? row[k.key]!.toLocaleString("fr-CH") : "—"}</td>)}
-                  </tr>
+                  <details key={x.key} className="written-item">
+                    <summary>
+                      <span className="label">{x.group}</span>
+                      <span className="written-title">{x.title}</span>
+                      <span className="muted small">{fmt.short(a.updated_at)}</span>
+                    </summary>
+                    {isLink ? (
+                      <a className="link" href={a.answer.trim()} target="_blank" rel="noopener noreferrer">{a.answer.trim()}</a>
+                    ) : (
+                      <p className="brand-answer">{a.answer}</p>
+                    )}
+                  </details>
                 );
               })}
-            </tbody>
-          </table>
-        </div>
+          </div>
+        )}
       </section>
 
       <section className="section">
@@ -130,7 +173,20 @@ export default async function MemberPage({ params }: PageProps<"/espace/admin/me
       </section>
 
       <section className="section">
-        <div className="section-head"><h2>Micro-app</h2></div>
+        <div className="section-head"><h2>Micro-app</h2><a className="link" href="#ecrit">Voir ses réponses</a></div>
+        <div className="ma-admin">
+          {MICRO_STEPS.map((st, i) => {
+            const tasks = st.tasks.filter((t) => !t.level || t.level <= (microapp?.level ?? 1));
+            const n = tasks.filter((t) => byKeyHas(completions, t.key)).length;
+            return (
+              <div key={st.title} className={`ma-admin-step${i < step ? " done" : i === step ? " cur" : ""}`}>
+                <span className="label">{i + 1}. {st.title}</span>
+                <span className="num">{n}/{tasks.length}</span>
+                <span className="bar"><i style={{ width: `${tasks.length ? (n / tasks.length) * 100 : 0}%` }} /></span>
+              </div>
+            );
+          })}
+        </div>
         <form action={saveMicroapp.bind(null, id)} className="card form">
           <div className="form-row">
             <label className="field">
@@ -141,7 +197,7 @@ export default async function MemberPage({ params }: PageProps<"/espace/admin/me
               </select>
             </label>
             <label className="field">
-              <span>Étape</span>
+              <span>Étape validée (le membre voit « En cours » sur celle-ci)</span>
               <select id="step" name="step" defaultValue={microapp?.step ?? 0}>
                 {MICROAPP_STEPS.map((s, i) => <option key={s.title} value={i}>{i + 1}. {s.title}</option>)}
                 <option value={6}>Terminée</option>
@@ -211,4 +267,8 @@ export default async function MemberPage({ params }: PageProps<"/espace/admin/me
       </section>
     </div>
   );
+}
+
+function byKeyHas(list: { item_key: string }[], key: string) {
+  return list.some((c) => c.item_key === key);
 }

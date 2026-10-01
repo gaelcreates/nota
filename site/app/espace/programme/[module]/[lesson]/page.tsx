@@ -88,7 +88,7 @@ export default async function LessonPage({ params }: PageProps<"/espace/programm
           {feeds.length > 0 && (
             <div className="row-extra">
               {feeds.map((d) => (
-                <Link key={d.key} href="/espace/depart" className={`pill${done.has(d.key) ? " pill-accent" : ""}`}>Matière : {d.title}</Link>
+                <Link key={d.key} href={`/espace/depart#${d.key}`} className={`pill${done.has(d.key) ? " pill-accent" : ""}`}>Matière : {d.title}</Link>
               ))}
             </div>
           )}

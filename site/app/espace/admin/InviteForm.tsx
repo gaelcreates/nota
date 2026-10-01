@@ -23,7 +23,7 @@ export function InviteForm({ today }: { today: string }) {
       </div>
       {error && <p className="error" role="alert">{error}</p>}
       <div><Submit className="btn btn-accent">Inviter</Submit></div>
-      <p className="muted small">L&apos;accès se ferme six mois après le début. La personne se connecte avec cette adresse, sans mot de passe.</p>
+      <p className="muted small">La personne se connecte avec cette adresse, sans mot de passe. Tant que « payé » n&apos;est pas coché dans sa fiche, elle voit seulement son contrat et le paiement. L&apos;accès se ferme six mois après le début.</p>
     </form>
   );
 }

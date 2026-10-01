@@ -10,8 +10,8 @@ const NAV = [
   ["Le départ", "7/10"],
   ["Programme", "3/26"],
   ["Appels", ""],
+  ["Ma marque", "5/14"],
   ["Micro-app", ""],
-  ["Tes chiffres", ""],
 ];
 
 export function LoginPreview() {
@@ -121,11 +121,11 @@ export function LoginPreview() {
           <div><span className="lp-mt">Appel de groupe</span><span className="lp-ms">Jeudi · Hooks</span></div>
         </div>
         <div className="lp-float lp-figs">
-          <span className="lp-label">Ta photo de départ</span>
+          <span className="lp-label">Où tu en es</span>
           <div className="lp-figrow">
-            <div><b>18 400</b><span>Vues</span></div>
-            <div><b>12</b><span>Messages</span></div>
-            <div><b>1</b><span>Rendez-vous</span></div>
+            <div><b>28 %</b><span>Parcours</span></div>
+            <div><b>5/14</b><span>Ma marque</span></div>
+            <div><b>3/6</b><span>Micro-app</span></div>
           </div>
         </div>
         <div className="lp-toast"><span className="lp-tick">✓</span>Mission cochée</div>

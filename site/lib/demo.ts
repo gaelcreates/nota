@@ -39,15 +39,14 @@ export const other: Member = {
 const done = ["d.miro", "d.trois", "d.photo", "d.questionnaire", "d.posts", "d.verbatims", "d.preuves", "m1.1", "m1.2", "m1.3"];
 
 export const members: MemberRow[] = [
-  { ...viewer, role: "member", done, last_done: new Date().toISOString() },
-  { ...other, done: ["d.miro", "d.trois"], last_done: new Date().toISOString() },
+  { ...viewer, role: "member", done, last_done: new Date().toISOString(), micro_step: 2, written: 3 },
+  { ...other, done: ["d.miro", "d.trois"], last_done: d(9), micro_step: 0, written: 0 },
 ];
 
 export function bundle(id: string): Bundle {
-  if (id !== viewer.id) return { completions: [{ item_key: "d.miro", link: null, done_at: d(3) }], metrics: [], calls: [], microapp: null, deliveries: [], answers: [] };
+  if (id !== viewer.id) return { completions: [{ item_key: "d.miro", link: null, done_at: d(3) }], calls: [], microapp: null, deliveries: [], answers: [] };
   return {
     completions: done.map((k, i) => ({ item_key: k, link: k === "d.posts" ? "https://docs.google.com" : null, done_at: d(28 - i * 2) })),
-    metrics: [{ period: "depart", views: 18400, messages: 12, subscribers: 0, meetings: 1 }],
     calls: [
       { id: "c2", held_on: d(9), title: "Ta conviction et ton ennemi", recording_url: "https://example.com", summary: "On a posé la croyance et trois principes.", next_steps: "Tester la phrase de positionnement sur trois clients." },
       { id: "c1", held_on: d(23), title: "Premier appel", recording_url: "https://example.com", summary: "Lecture reprise en profondeur, plan des trois mois fixé.", next_steps: null },
@@ -73,7 +72,7 @@ export const sessions: GroupSession[] = [
 
 export const settings: Settings = {
   questionnaire_url: "https://docs.google.com/document/d/1TdX_A1tDLW--BbYJjaLO5EMfjAlYZxfQ45vvtsDmCSU/copy",
-  miro_url: "",
+  miro_url: "https://miro.com/app/board/uXjVEfgXGIQ=/",
   calendly_url: "https://calendly.com",
   beneficiary: "Gael Fischer",
   iban: "CH93 0076 2011 6238 5295 7",
