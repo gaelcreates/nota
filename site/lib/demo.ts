@@ -14,9 +14,13 @@ export const viewer: Member = {
   end_date: d(-152),
   last_seen: new Date().toISOString(),
   created_at: d(31),
+  paid: true,
+  price: 8000,
+  paid_amount: 8000,
+  due_note: null,
 };
 
-const other: Member = {
+export const other: Member = {
   ...viewer,
   id: "demo-2",
   email: "hugo@exemple.ch",
@@ -26,6 +30,10 @@ const other: Member = {
   start_date: d(4),
   end_date: d(-178),
   last_seen: null,
+  paid: false,
+  price: 4000,
+  paid_amount: 1400,
+  due_note: "Solde de 2 600 € avant le début des appels 1:1.",
 };
 
 const done = ["d.miro", "d.trois", "d.photo", "d.questionnaire", "d.posts", "d.verbatims", "d.preuves", "m1.1", "m1.2", "m1.3"];
@@ -62,6 +70,13 @@ export const settings: Settings = {
   questionnaire_url: "https://docs.google.com/document/d/1TdX_A1tDLW--BbYJjaLO5EMfjAlYZxfQ45vvtsDmCSU/copy",
   miro_url: "",
   calendly_url: "https://calendly.com",
+  beneficiary: "Gael Fischer",
+  iban: "CH93 0076 2011 6238 5295 7",
+  street: "Rue de l'Exemple 1",
+  postal_code: "1110",
+  town: "Morges",
+  country: "CH",
+  currency: "EUR",
   discord_url: "https://discord.com",
   whatsapp_url: "",
 };

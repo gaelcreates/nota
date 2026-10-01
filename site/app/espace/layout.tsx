@@ -1,6 +1,7 @@
 import { Closed, Shell } from "@/components/Shell";
 import type { NavItem } from "@/components/Nav";
-import { getBundle, getViewer } from "@/lib/data";
+import { PaymentGate } from "@/components/PaymentGate";
+import { getBundle, getSettings, getViewer } from "@/lib/data";
 import { DEPART, LESSONS } from "@/lib/programme";
 import { isEnded } from "@/lib/time";
 
@@ -11,6 +12,9 @@ export default async function EspaceLayout({ children }: { children: React.React
   }
   if (viewer.role !== "admin" && isEnded(viewer.end_date)) {
     return <Closed title="C'est terminé" body="Tes six mois sont passés et ton espace est fermé. Merci pour le chemin fait ensemble." />;
+  }
+  if (viewer.role !== "admin" && !viewer.paid) {
+    return <PaymentGate viewer={viewer} settings={await getSettings()} />;
   }
 
   const { completions } = await getBundle(viewer.id);

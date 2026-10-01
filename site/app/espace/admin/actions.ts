@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { DEMO, getViewer } from "@/lib/data";
 import { supabaseServer } from "@/lib/supabase/server";
+import { DEFAULT_PRICE } from "@/lib/payment";
 import { addMonths } from "@/lib/time";
 
 async function admin() {
@@ -25,6 +26,7 @@ export async function inviteMember(_: string | null, form: FormData): Promise<st
       email: str(form, "email").toLowerCase(),
       full_name: str(form, "full_name"),
       offer: str(form, "offer") || "nota",
+      price: DEFAULT_PRICE[(str(form, "offer") || "nota") as keyof typeof DEFAULT_PRICE] ?? null,
       start_date: start,
       end_date: addMonths(start, 6),
     })
@@ -47,6 +49,26 @@ export async function updateMember(id: string, form: FormData) {
       role: str(form, "role"),
       start_date: str(form, "start_date"),
       end_date: str(form, "end_date"),
+    })
+    .eq("id", id);
+  revalidatePath("/espace", "layout");
+}
+
+const amount = (f: FormData, k: string) => {
+  const n = Number(str(f, k).replace(/[^\d.]/g, ""));
+  return Number.isFinite(n) ? Math.round(n) : 0;
+};
+
+export async function updatePayment(id: string, form: FormData) {
+  if (DEMO) return;
+  const db = await admin();
+  await db
+    .from("members")
+    .update({
+      paid: form.get("paid") === "on",
+      price: str(form, "price") ? amount(form, "price") : null,
+      paid_amount: amount(form, "paid_amount"),
+      due_note: opt(form, "due_note"),
     })
     .eq("id", id);
   revalidatePath("/espace", "layout");
@@ -126,7 +148,8 @@ export async function deleteSession(id: string) {
 export async function saveSettings(form: FormData) {
   if (DEMO) return;
   const db = await admin();
-  const rows = ["questionnaire_url", "miro_url", "calendly_url", "discord_url", "whatsapp_url"].map((key) => ({ key, value: str(form, key) }));
+  const keys = ["questionnaire_url", "miro_url", "calendly_url", "discord_url", "whatsapp_url", "beneficiary", "iban", "street", "postal_code", "town", "country", "currency"];
+  const rows = keys.map((key) => ({ key, value: key === "iban" ? str(form, key).replace(/\s+/g, "").toUpperCase() : str(form, key) }));
   await db.from("settings").upsert(rows);
   revalidatePath("/espace", "layout");
 }

@@ -198,3 +198,28 @@ insert into public.settings (key, value) values
   ('calendly_url', ''),
   ('discord_url', ''),
   ('whatsapp_url', '');
+
+-- ═══ Migration 2 (28 sept) : fonctions internes fermées aux visiteurs ═══
+revoke execute on function public.guard_new_user() from public, anon, authenticated;
+revoke execute on function public.link_new_user() from public, anon, authenticated;
+revoke execute on function public.link_invited_member() from public, anon, authenticated;
+revoke execute on function public.me(), public.is_admin(), public.is_active(), public.has_group(), public.touch_last_seen() from public, anon;
+grant execute on function public.me(), public.is_admin(), public.is_active(), public.has_group(), public.touch_last_seen() to authenticated;
+-- (toutes les règles ci-dessus passées en « to authenticated » via alter policy)
+
+-- ═══ Migration 3 (1er oct) : paiement et contrat ═══
+alter table public.members
+  add column paid boolean not null default false,
+  add column price integer,
+  add column paid_amount integer not null default 0,
+  add column due_note text;
+update public.members set paid = true where role = 'admin';
+create or replace function public.is_active() returns boolean
+language sql stable security definer set search_path = '' as $$
+  select exists (select 1 from public.members where user_id = auth.uid() and (role = 'admin' or (paid and end_date >= current_date)))
+$$;
+drop policy "connecté : réglages" on public.settings;
+create policy "membre : réglages" on public.settings for select to authenticated using (public.me() is not null);
+insert into public.settings (key, value) values
+  ('beneficiary', ''), ('iban', ''), ('street', ''), ('postal_code', ''), ('town', ''), ('country', 'CH'), ('currency', 'EUR')
+on conflict (key) do nothing;

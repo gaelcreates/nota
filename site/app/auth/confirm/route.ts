@@ -7,6 +7,12 @@ export async function GET(request: NextRequest) {
   const { searchParams, origin } = request.nextUrl;
   const token_hash = searchParams.get("token_hash");
   const type = (searchParams.get("type") ?? "email") as EmailOtpType;
+  const code = searchParams.get("code");
+  if (code) {
+    const db = await supabaseServer();
+    const { error } = await db.auth.exchangeCodeForSession(code);
+    if (!error) return NextResponse.redirect(`${origin}/espace`);
+  }
   if (token_hash) {
     const db = await supabaseServer();
     const { error } = await db.auth.verifyOtp({ type, token_hash });

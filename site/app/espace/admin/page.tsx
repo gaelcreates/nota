@@ -40,6 +40,7 @@ export default async function Admin() {
                 <tr>
                   <th>Membre</th>
                   <th>Formule</th>
+                  <th>Paiement</th>
                   <th>Semaine</th>
                   <th>Départ</th>
                   <th>Programme</th>
@@ -61,6 +62,7 @@ export default async function Admin() {
                         </Link>
                       </td>
                       <td><span className={`pill${m.offer === "nota_plus" ? " pill-ink" : ""}`}><OfferName offer={m.offer} /></span></td>
+                      <td><span className={`pill pill-dot${m.paid ? " pill-ink" : " pill-accent"}`}>{m.paid ? "Payé" : "En attente"}</span></td>
                       <td className="num">{isEnded(m.end_date) ? "—" : weekOf(m.start_date)}</td>
                       <td><div className="cell-bar"><span className="num">{d}/{DEPART.length}</span><div className="bar mini-bar"><i style={{ width: `${(d / DEPART.length) * 100}%` }} /></div></div></td>
                       <td><div className="cell-bar"><span className="num">{p}/{LESSONS.length}</span><div className="bar mini-bar"><i style={{ width: `${(p / LESSONS.length) * 100}%` }} /></div></div></td>

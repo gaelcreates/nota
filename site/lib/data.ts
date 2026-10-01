@@ -17,6 +17,10 @@ export type Member = {
   end_date: string;
   last_seen: string | null;
   created_at: string;
+  paid: boolean;
+  price: number | null;
+  paid_amount: number;
+  due_note: string | null;
 };
 export type Completion = { item_key: string; link: string | null; done_at: string };
 export type Metric = {
@@ -49,7 +53,7 @@ export type Bundle = {
 
 // La personne connectée, une seule lecture par requête
 export const getViewer = cache(async (): Promise<Member | null> => {
-  if (DEMO) return demo.viewer;
+  if (DEMO) return process.env.NOTA_DEMO_AS === "membre" ? demo.other : demo.viewer;
   const db = await supabaseServer();
   const { data: auth } = await db.auth.getClaims();
   if (!auth?.claims) return null;

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { addCall, deleteCall, removeMember, saveDelivery, saveMicroapp, updateMember } from "../../actions";
+import { addCall, deleteCall, removeMember, saveDelivery, saveMicroapp, updateMember, updatePayment } from "../../actions";
+import { balance, money } from "@/lib/payment";
 import { Confirm } from "@/components/Confirm";
 import { OfferName, Plus } from "@/components/Offer";
 import { Submit } from "@/components/Submit";
@@ -43,6 +44,27 @@ export default async function MemberPage({ params }: PageProps<"/espace/admin/me
         </div>
         <p>{m.email}</p>
       </header>
+
+      <section className="section">
+        <div className="section-head">
+          <h2>Paiement</h2>
+          <a className="link" href={`/contrat?m=${id}`} target="_blank" rel="noopener">Voir son contrat</a>
+        </div>
+        <form action={updatePayment.bind(null, id)} className={`card form pay-admin${m.paid ? " is-paid" : ""}`}>
+          <label className="switch">
+            <input id="paid" name="paid" type="checkbox" defaultChecked={m.paid} />
+            <span className="switch-ui" aria-hidden="true" />
+            <span><strong>{m.paid ? "Payé, accès ouvert" : "En attente, accès fermé"}</strong><br /><span className="muted small">Coche quand le contrat signé et le solde sont reçus.</span></span>
+          </label>
+          <div className="form-row">
+            <label className="field"><span>Prix total</span><input id="price" name="price" inputMode="numeric" defaultValue={m.price ?? ""} /></label>
+            <label className="field"><span>Déjà versé</span><input id="paid_amount" name="paid_amount" inputMode="numeric" defaultValue={m.paid_amount} /></label>
+            <div className="field"><span>Solde</span><div className="pay-solde num">{money(balance(m))}</div></div>
+          </div>
+          <label className="field"><span>Échéances (visibles dans le contrat et l&apos;écran de paiement)</span><input id="due_note" name="due_note" defaultValue={m.due_note ?? ""} placeholder="Solde avant le premier appel 1:1" /></label>
+          <div><Submit>Enregistrer</Submit></div>
+        </form>
+      </section>
 
       <section className="section">
         <div className="section-head"><h2>Missions</h2><span className="muted">{completions.length} cochées</span></div>
