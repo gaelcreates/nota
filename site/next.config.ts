@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 // Un seul projet : la LP (pages statiques dans public/) et l'espace membre (/espace).
-const LEGAL = "conditions-generales|confidentialite|mentions-legales";
+const LEGAL = "conditions-generales|confidentialite|mentions-legales|confirme|bienvenue";
 const SUPABASE = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 
 const CSP = [

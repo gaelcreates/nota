@@ -2,5 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /connexion
 Disallow: /espace
+Disallow: /confirme
+Disallow: /bienvenue
 
 Sitemap: https://notaconsulting.ch/sitemap.xml
