@@ -61,7 +61,7 @@ export default async function Depart() {
                           )
                         )}
                         {feeds.map((l) => (
-                          <Link key={l.key} href={`/espace/programme/${l.module.slug}#${l.key}`} className="pill">
+                          <Link key={l.key} href={`/espace/programme/${l.module.slug}/${l.key.split(".")[1]}`} className="pill">
                             Leçon {l.module.number}·{l.key.split(".")[1]}
                           </Link>
                         ))}

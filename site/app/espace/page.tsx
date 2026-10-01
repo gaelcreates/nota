@@ -24,7 +24,7 @@ export default async function Accueil() {
   const next = nextDepart
     ? { kind: "Le départ", title: nextDepart.title, body: nextDepart.body, href: "/espace/depart", tag: `${nextDepart.minutes} min` }
     : nextLesson
-      ? { kind: `Module ${nextLesson.module.number} · ${nextLesson.module.title}`, title: nextLesson.mission, body: nextLesson.title, href: `/espace/programme/${nextLesson.module.slug}`, tag: "Mission" }
+      ? { kind: `Module ${nextLesson.module.number} · ${nextLesson.module.title}`, title: nextLesson.mission, body: nextLesson.title, href: `/espace/programme/${nextLesson.module.slug}/${nextLesson.key.split(".")[1]}`, tag: "Mission" }
       : null;
 
   const depart = metrics.find((m) => m.period === "depart");

@@ -44,7 +44,7 @@ export const members: MemberRow[] = [
 ];
 
 export function bundle(id: string): Bundle {
-  if (id !== viewer.id) return { completions: [{ item_key: "d.miro", link: null, done_at: d(3) }], metrics: [], calls: [], microapp: null, deliveries: [] };
+  if (id !== viewer.id) return { completions: [{ item_key: "d.miro", link: null, done_at: d(3) }], metrics: [], calls: [], microapp: null, deliveries: [], answers: [] };
   return {
     completions: done.map((k, i) => ({ item_key: k, link: k === "d.posts" ? "https://docs.google.com" : null, done_at: d(28 - i * 2) })),
     metrics: [{ period: "depart", views: 18400, messages: 12, subscribers: 0, meetings: 1 }],
@@ -56,6 +56,11 @@ export function bundle(id: string): Bundle {
     deliveries: [
       { item_key: "socle", status: "livre", link: "https://example.com" },
       { item_key: "da", status: "en_cours", link: null },
+    ],
+    answers: [
+      { item_key: "m1.1", answer: "Perçue aujourd'hui : la coach sympa qui poste des conseils.\nVoulue dans six mois : la référence qui fait passer les indépendantes à leur premier vrai client.", updated_at: d(20) },
+      { item_key: "m1.2", answer: "Je voudrais vivre de mon activité, parce que j'ai quitté un salaire pour ça, mais personne ne sait vraiment ce que je fais.", updated_at: d(14) },
+      { item_key: "m1.3", answer: "Croyance : on vend mieux en montrant qu'en expliquant.\nPrincipes : la preuve avant la promesse, la régularité avant le volume, la clarté avant le style.\nEnnemi : les conseils génériques.\nFaiblesse : je parle lentement, et je l'assume.", updated_at: d(8) },
     ],
   };
 }

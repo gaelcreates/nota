@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MissionRow } from "@/components/MissionRow";
 import { getBundle, getViewer } from "@/lib/data";
-import { DEPART, MODULES } from "@/lib/programme";
+import { CONTENT } from "@/lib/lessons";
+import { MODULES } from "@/lib/programme";
 
 export function generateStaticParams() {
   return MODULES.map((m) => ({ module: m.slug }));
@@ -23,7 +23,8 @@ export default async function ModulePage({ params }: PageProps<"/espace/programm
   const next = MODULES[index + 1];
 
   const viewer = (await getViewer())!;
-  const { completions } = await getBundle(viewer.id);
+  const { completions, answers } = await getBundle(viewer.id);
+  const answered = new Set(answers.filter((x) => x.answer.trim()).map((x) => x.item_key));
   const byKey = new Map(completions.map((c) => [c.item_key, c]));
   const n = m.lessons.filter((l) => byKey.has(l.key)).length;
 
@@ -41,36 +42,28 @@ export default async function ModulePage({ params }: PageProps<"/espace/programm
         </p>
       </header>
 
-      <div className="list">
+      <ol className="lessons">
         {m.lessons.map((l, i) => {
-          const c = byKey.get(l.key);
-          const feeds = DEPART.filter((d) => l.feeds?.includes(d.key));
+          const isDone = byKey.has(l.key);
+          const c = CONTENT[l.key];
           return (
-            <div key={l.key} id={l.key} className="lesson">
-              <span className="lesson-num num">{m.number}·{i + 1}</span>
-              <MissionRow
-                itemKey={l.key}
-                title={l.mission}
-                body={`${l.title} · Livrable : ${l.livrable}`}
-                done={!!c}
-                link={c?.link ?? null}
-                meta={l.video ? <a className="pill pill-ink" href={l.video} target="_blank" rel="noopener noreferrer">Vidéo</a> : <span className="pill">Vidéo à venir</span>}
-                extra={
-                  feeds.length > 0 && (
-                    <>
-                      {feeds.map((d) => (
-                        <Link key={d.key} href="/espace/depart" className={`pill${byKey.has(d.key) ? " pill-accent" : ""}`}>
-                          Matière : {d.title}
-                        </Link>
-                      ))}
-                    </>
-                  )
-                }
-              />
-            </div>
+            <li key={l.key} id={l.key}>
+              <Link href={`/espace/programme/${m.slug}/${i + 1}`} className={`lesson-row${isDone ? " is-done" : ""}`}>
+                <span className="lesson-n num">{isDone ? "✓" : `${m.number}·${i + 1}`}</span>
+                <span className="lesson-txt">
+                  <span className="lesson-title">{l.title}</span>
+                  <span className="muted">{l.mission}</span>
+                </span>
+                <span className="lesson-meta">
+                  {answered.has(l.key) && <span className="pill pill-accent">Livrable écrit</span>}
+                  {c && <span className="muted small">{c.minutes} min</span>}
+                  <span className="arrow" aria-hidden="true" />
+                </span>
+              </Link>
+            </li>
           );
         })}
-      </div>
+      </ol>
 
       <nav className="pager">
         {prev ? <Link href={`/espace/programme/${prev.slug}`} className="pager-link"><span className="label">Précédent</span>{prev.number} {prev.title}</Link> : <span />}

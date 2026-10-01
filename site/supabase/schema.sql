@@ -223,3 +223,22 @@ create policy "membre : réglages" on public.settings for select to authenticate
 insert into public.settings (key, value) values
   ('beneficiary', ''), ('iban', ''), ('street', ''), ('postal_code', ''), ('town', ''), ('country', 'CH'), ('currency', 'EUR')
 on conflict (key) do nothing;
+
+-- ═══ Migration 4 (1er oct) : livrables écrits et nom modifiable ═══
+create table public.answers (
+  member_id uuid not null references public.members(id) on delete cascade,
+  item_key text not null,
+  answer text not null default '' check (char_length(answer) <= 20000),
+  updated_at timestamptz not null default now(),
+  primary key (member_id, item_key)
+);
+alter table public.answers enable row level security;
+create policy "membre : ses livrables écrits" on public.answers for all to authenticated
+  using (public.is_admin() or (member_id = public.me() and public.is_active()))
+  with check (public.is_admin() or (member_id = public.me() and public.is_active()));
+create or replace function public.update_my_name(new_name text) returns void
+language sql security definer set search_path = '' as $$
+  update public.members set full_name = left(trim(new_name), 80) where user_id = auth.uid()
+$$;
+revoke execute on function public.update_my_name(text) from public, anon;
+grant execute on function public.update_my_name(text) to authenticated;

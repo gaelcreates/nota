@@ -1,5 +1,5 @@
 <!-- Supabase › Authentication › Emails : à coller dans « Magic link » ET dans « Confirm signup ».
-     Objet conseillé : Ton code Nota -->
+     Objet conseillé : Ton lien Nota -->
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f0;padding:40px 16px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;">
   <tr>
     <td align="center">
@@ -11,19 +11,18 @@
         </tr>
         <tr>
           <td style="padding:20px 32px 0;">
-            <div style="font-size:15px;line-height:1.5;color:#3a3a36;">Ton code pour entrer dans ton espace :</div>
-            <div style="margin:18px 0 8px;font-size:40px;font-weight:800;letter-spacing:10px;color:#0f0f0f;">{{ .Token }}</div>
-            <div style="height:6px;width:120px;background:#ffc508;border-radius:3px;"></div>
+            <div style="font-size:26px;font-weight:800;line-height:1.15;color:#0f0f0f;">Ton espace t'attend.</div>
+            <div style="height:6px;width:120px;margin-top:14px;background:#ffc508;border-radius:3px;"></div>
           </td>
         </tr>
         <tr>
           <td style="padding:28px 32px 8px;">
-            <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email" style="display:inline-block;background:#0f0f0f;color:#ffffff;text-decoration:none;font-size:15px;padding:13px 22px;border-radius:999px;">Ou ouvre ton espace directement</a>
+            <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email" style="display:inline-block;background:#0f0f0f;color:#ffffff;text-decoration:none;font-size:15px;padding:13px 22px;border-radius:999px;">Ouvrir mon espace</a>
           </td>
         </tr>
         <tr>
           <td style="padding:20px 32px 34px;font-size:13px;line-height:1.5;color:#7a7a73;">
-            Le code et le lien expirent dans une heure. Si tu n'as rien demandé, ignore ce mail.
+            Le lien expire dans une heure. Si tu n'as rien demandé, ignore ce mail.
           </td>
         </tr>
       </table>

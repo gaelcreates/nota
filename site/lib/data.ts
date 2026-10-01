@@ -23,6 +23,7 @@ export type Member = {
   due_note: string | null;
 };
 export type Completion = { item_key: string; link: string | null; done_at: string };
+export type Answer = { item_key: string; answer: string; updated_at: string };
 export type Metric = {
   period: "depart" | "m3" | "m6";
   views: number | null;
@@ -49,6 +50,7 @@ export type Bundle = {
   calls: Call[];
   microapp: Microapp | null;
   deliveries: Delivery[];
+  answers: Answer[];
 };
 
 // La personne connectée, une seule lecture par requête
@@ -65,12 +67,13 @@ export const getViewer = cache(async (): Promise<Member | null> => {
 export const getBundle = cache(async (memberId: string): Promise<Bundle> => {
   if (DEMO) return demo.bundle(memberId);
   const db = await supabaseServer();
-  const [c, m, k, a, d] = await Promise.all([
+  const [c, m, k, a, d, w] = await Promise.all([
     db.from("completions").select("item_key, link, done_at").eq("member_id", memberId),
     db.from("metrics").select("period, views, messages, subscribers, meetings").eq("member_id", memberId),
     db.from("calls").select("id, held_on, title, recording_url, summary, next_steps").eq("member_id", memberId).order("held_on", { ascending: false }),
     db.from("microapps").select("level, step, url, note").eq("member_id", memberId).maybeSingle(),
     db.from("deliveries").select("item_key, status, link").eq("member_id", memberId),
+    db.from("answers").select("item_key, answer, updated_at").eq("member_id", memberId),
   ]);
   return {
     completions: (c.data as Completion[]) ?? [],
@@ -78,6 +81,7 @@ export const getBundle = cache(async (memberId: string): Promise<Bundle> => {
     calls: (k.data as Call[]) ?? [],
     microapp: (a.data as Microapp) ?? null,
     deliveries: (d.data as Delivery[]) ?? [],
+    answers: (w.data as Answer[]) ?? [],
   };
 });
 

@@ -13,12 +13,12 @@ export function Shell({ viewer, items, children }: { viewer: Member; items: NavI
         <Brand />
         <Nav items={items} />
         <div className="rail-foot">
-          <div className="who">
+          <a href="/espace/compte" className="who">
             <strong>{first}</strong>
             <span>
               <OfferName offer={viewer.offer} /> · semaine {weekOf(viewer.start_date)}
             </span>
-          </div>
+          </a>
           <form action={signOut}>
             <button className="signout" type="submit">Se déconnecter</button>
           </form>

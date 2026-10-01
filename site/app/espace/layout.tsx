@@ -26,6 +26,7 @@ export default async function EspaceLayout({ children }: { children: React.React
     { href: "/espace", label: "Accueil" },
     { href: "/espace/depart", label: "Le départ", count: `${depart}/${DEPART.length}` },
     { href: "/espace/programme", label: "Programme", count: `${lessons}/${LESSONS.length}` },
+    { href: "/espace/ma-marque", label: "Ma marque" },
     { href: "/espace/appels", label: "Appels" },
     { href: "/espace/micro-app", label: "Micro-app" },
     { href: "/espace/progression", label: "Tes chiffres" },

@@ -60,3 +60,24 @@ export async function signOut() {
   }
   redirect("/connexion");
 }
+
+export async function saveAnswer(key: string, answer: string) {
+  if (DEMO) return;
+  const viewer = await me();
+  const db = await supabaseServer();
+  const text = answer.slice(0, 20000);
+  if (text.trim()) {
+    await db.from("answers").upsert({ member_id: viewer.id, item_key: key, answer: text, updated_at: new Date().toISOString() });
+  } else {
+    await db.from("answers").delete().eq("member_id", viewer.id).eq("item_key", key);
+  }
+  revalidatePath("/espace", "layout");
+}
+
+export async function updateMyName(form: FormData) {
+  if (DEMO) return;
+  await me();
+  const db = await supabaseServer();
+  await db.rpc("update_my_name", { new_name: String(form.get("full_name") ?? "") });
+  revalidatePath("/espace", "layout");
+}
