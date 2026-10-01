@@ -1,5 +1,6 @@
 import { Brand } from "@/components/Mark";
 import { LoginForm } from "./LoginForm";
+import { LoginPreview } from "@/components/LoginPreview";
 
 export const metadata = { title: "Connexion" };
 
@@ -19,13 +20,8 @@ export default async function Connexion({ searchParams }: PageProps<"/connexion"
         </div>
         <p className="login-foot muted"><a href="/" className="link">notaconsulting.ch</a> · Un souci ? gael@notaconsulting.ch</p>
       </div>
-      <div className="login-art" aria-hidden="true">
-        <div className="login-ticks">
-          {Array.from({ length: 26 }, (_, i) => (
-            <i key={i} style={{ ["--i" as string]: i }} className={i < 13 ? "solo" : ""} />
-          ))}
-        </div>
-        <p className="login-art-text display">Six mois.<br />Une marque qui tient.</p>
+      <div className="login-art">
+        <LoginPreview />
       </div>
     </div>
   );

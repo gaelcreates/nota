@@ -99,7 +99,7 @@ STEPS_CONFIRME = steps([
 STEPS_BIENVENUE = steps([
     ("Ouvre ton espace", '<a href="/connexion">notaconsulting.ch/connexion</a>, avec l\'adresse de ton inscription. Pas de mot de passe : un code arrive par mail.'),
     ("Réserve ton premier appel", "Le lien est dans ton espace. Dans les sept jours, pour reprendre ta Lecture et fixer le plan."),
-    ("Fais ton départ", "Dix missions courtes dans ton espace, dont le questionnaire. Trois se font en vingt minutes."),
+    ("Fais ton départ", "Des missions t'attendent dans ton espace."),
 ])
 
 # ─── /confirme : après la réservation de la Lecture (la VSC) ───────────
