@@ -115,6 +115,23 @@ export const CONTENT: Record<string, LessonContent> = {
       "Ta banque de départ : six plans par lieu.",
     ],
   },
+  "m1.9": {
+    minutes: 12,
+    points: [
+      "Ton profil est la page que tout inconnu ouvre avant de s'abonner, de cliquer ou de t'écrire. Il dit ta marque en quelques secondes, ou il la perd.",
+      "La photo : ton visage, net, cadré serré, lumière douce, un fond qui contraste avec ta peau. Elle s'affiche en tout petit : un visage lisible bat un logo.",
+      "Le nom : simple à dire, simple à écrire, le même partout. Le champ « Nom » ressort dans la recherche : ton prénom et ton nom, puis ce que tu fais.",
+      "La bio, 150 caractères au plus : pour qui tu travailles, ce que tu leur apportes, une preuve, puis un appel à l'action vers ton lien.",
+      "Le lien : un seul chemin prioritaire, vers ta micro-app ou ta prise de rendez-vous. Si tu en mets plusieurs, le premier est celui qui compte.",
+      "Les stories à la une : quatre à six, dans l'ordre du tunnel, avec des couvertures dans ta charte. Qui je suis, résultats, l'offre, conseils, me parler.",
+      "Épingle trois posts en haut de ta grille : ton histoire, ta meilleure preuve, ton offre.",
+    ],
+    examples: [
+      "Nom : « Camille Exemple · Coach business » plutôt que « camille.coaching.officiel_ ».",
+      "Bio avant : « Passionnée de bien-être, maman de deux ». Après : « J'aide les indépendantes à signer leurs premiers clients · [ta preuve] · Réserve ton appel ↓ ».",
+      "Stories à la une : Qui je suis · Résultats · L'offre · Conseils · Me parler.",
+    ],
+  },
   // ─── 02 L'offre
   "m2.1": {
     minutes: 10,

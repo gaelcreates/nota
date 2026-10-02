@@ -207,7 +207,7 @@ export const MODULES: Module[] = [
     slug: "marque",
     number: "01",
     title: "La marque",
-    livrable: "Ton socle de marque et ta charte, deux pages, sur ton Miro",
+    livrable: "Ton socle de marque, ta charte et ton profil refait",
     lessons: [
       { key: "m1.1", title: "Marque perçue et marque voulue", mission: "Écris ta phrase perçue et ta phrase voulue", livrable: "Ta phrase perçue aujourd'hui, ta phrase voulue dans six mois", feeds: ["d.trois", "d.photo"] },
       { key: "m1.2", title: "Ta cible et sa tension", mission: "Trouve ton insight, fais-le valider par trois personnes", livrable: "Une phrase d'insight validée par trois personnes", feeds: ["d.verbatims"] },
@@ -217,6 +217,7 @@ export const MODULES: Module[] = [
       { key: "m1.6", title: "Ta personnalité, ton ton, ton histoire", mission: "Écris ta fiche de personnalité et ton histoire en une page", livrable: "Ta fiche de personnalité, tes mots oui et non, ton histoire en une page" },
       { key: "m1.7", title: "Ton monde et ton identité visuelle", mission: "Fais ta charte en une page, applicable par un monteur", livrable: "Ta charte en une page : monde, couleur, typos, cadre", feeds: ["d.moodboard"] },
       { key: "m1.8", title: "Ta présence et ton son", mission: "Écris ta règle de tournage, lance ta banque de départ", livrable: "Ta règle de tournage et ta banque de départ" },
+      { key: "m1.9", title: "Ton profil, ta vitrine", mission: "Refais ton profil : photo, nom, bio, lien, stories à la une", livrable: "Ton profil refait, avec une capture avant et après", feeds: ["d.photo", "d.inconnu"] },
     ],
   },
   {
