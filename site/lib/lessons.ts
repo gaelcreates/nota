@@ -84,7 +84,6 @@ export const CONTENT: Record<string, LessonContent> = {
     examples: [
       "Harley-Davidson le hors-la-loi, Nike le héros, Apple le créateur.",
       "La douleur d'hier devient celle de ton audience : c'est elle qui crée le lien.",
-      "« 400 abonnés, 0 client, 0 crédibilité » : un point de départ qui se raconte.",
     ],
   },
   "m1.7": {
@@ -124,7 +123,7 @@ export const CONTENT: Record<string, LessonContent> = {
       "La bio, 150 caractères au plus : pour qui tu travailles, ce que tu leur apportes, une preuve, puis un appel à l'action vers ton lien.",
       "Le lien : un seul chemin prioritaire, vers ta micro-app ou ta prise de rendez-vous. Si tu en mets plusieurs, le premier est celui qui compte.",
       "Les stories à la une : quatre à six, dans l'ordre du tunnel, avec des couvertures dans ta charte. Qui je suis, résultats, l'offre, conseils, me parler.",
-      "Épingle trois posts en haut de ta grille : ton histoire, ta meilleure preuve, ton offre.",
+      "Pas de post épinglé en vitrine. Ta grille se lit telle qu'elle est, du plus récent au plus ancien.",
     ],
     examples: [
       "Nom : « Camille Exemple · Coach business » plutôt que « camille.coaching.officiel_ ».",
@@ -283,16 +282,16 @@ export const CONTENT: Record<string, LessonContent> = {
       "Repère : l'accroche se joue dans les trois premières secondes, et elle vise large. Elle passe par trois canaux à la fois : ce que tu dis, ce qui s'écrit, ce qu'on voit. Soigne l'image en premier : on la voit avant d'entendre un mot.",
       "Cinq angles d'accroche : l'erreur, la croyance contredite, l'avant et après, le chiffre personnel, la scène (un lieu, un moment, une émotion). Pars des accroches de tes deux posts surlignés et des mots exacts de ta banque de verbatims.",
       "La relance arrive juste après l'accroche. Elle dit pour qui est la vidéo et elle trie, pour ne pas attirer que des touristes.",
-      "Repère : un re-hook toutes les trois à huit secondes, chacun sur un changement de plan. Il prend la forme d'un mot pivot (mais, sauf que, jusqu'au jour où), d'une image nouvelle ou d'un silence.",
+      "Repère : deux à trois re-hooks par vidéo, environ toutes les huit à dix secondes. Le dosage varie d'une vidéo à l'autre. Chacun tombe sur un changement de plan : un mot pivot (mais, sauf que, jusqu'au jour où), une image nouvelle ou un silence.",
       "Les preuves s'empilent juste avant ou juste après l'accroche. Reprends les cinq de ta leçon 01·4 : une seule ne suffit pas, et chacune doit être vraie.",
       "La boucle ouverte (open loop) pose une question tôt et y répond en clôture, sans l'annoncer. Une deuxième boucle s'ouvre en toute fin, après la clôture, et renvoie vers la suite : le prochain épisode, la série.",
       "Marque chaque mécanique entre crochets pour le monteur, avec son minutage : [ACCROCHE], [RELANCE], [PREUVE], [OPEN LOOP], [RE-HOOK], [APPEL]. L'appel s'écrit à la leçon suivante.",
     ],
     examples: [
-      "Accroche et relance : « 400 abonnés, 0 client, 0 crédibilité. Et là, j'ai changé une seule chose. » Puis : « Si tu postes et que rien ne rentre, c'est pour toi. »",
+      "Accroche et relance : « J'avais des abonnés, mais aucun client. Et là, j'ai changé une seule chose. » Puis : « Si tu postes et que rien ne rentre, c'est pour toi. »",
       "Avant : « Aujourd'hui, je vais te parler de branding. » Après, croyance contredite : « Tout le monde te dit d'utiliser Claude pour créer du contenu. Personne ne te dit comment. »",
       "Boucle annoncée : « Reste jusqu'à la fin, je te donne la réponse. » Boucle tenue : « Ce qui a changé, ce n'est pas mon rythme. » La question s'ouvre seule, la réponse arrive en clôture.",
-      "[0:00 ACCROCHE, plan serré] Je postais tous les jours. Après [durée], [résultat]. [0:03 RELANCE, plan large] Si tu crées sans résultat, c'est pour toi. [0:05 PREUVE] [preuve 1]. [preuve 2]. [preuve 3]. [0:09 OPEN LOOP] Ce qui a changé, ce n'est pas mon rythme. [0:11 RE-HOOK, plan moyen] Mais… [0:17 RE-HOOK, gros plan] Sauf que… [0:22 APPEL] [0:24 RE-HOOK, plan large, silence] [0:26 clôture, la boucle se ferme] [0:30 OPEN LOOP 2] La suite, dans le prochain épisode.",
+      "[0:00 ACCROCHE, plan serré] Je postais tous les jours. Après [durée], [résultat]. [0:03 RELANCE, plan large] Si tu crées sans résultat, c'est pour toi. [0:05 PREUVE] [preuve 1]. [preuve 2]. [preuve 3]. [0:09 OPEN LOOP] Ce qui a changé, ce n'est pas mon rythme. [0:12 RE-HOOK, plan moyen] Mais… [0:20 RE-HOOK, gros plan] Sauf que… [0:22 APPEL] [0:26 clôture, la boucle se ferme] [0:30 OPEN LOOP 2] La suite, dans le prochain épisode.",
     ],
   },
   "m3.8": {

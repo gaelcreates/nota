@@ -583,7 +583,7 @@ a.now:hover::after { transform: scale(1.15); }
 .examples { list-style: none; display: grid; gap: 10px; }
 .examples li { padding: 14px 18px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); color: var(--ink-2); max-width: 70ch; }
 .mission-card { display: grid; gap: 14px; padding: 28px; border-radius: 24px; background: var(--surface); border: 1.5px solid var(--ink); box-shadow: 0 24px 50px -32px rgba(15,15,15,.45); }
-.mission-card h2.display { font-size: clamp(24px, 3vw, 32px); line-height: 1.1; }
+.mission-card h2.display { font-size: clamp(24px, 3vw, 32px); line-height: 1.1; text-wrap: balance; }
 .answer { position: relative; }
 .answer textarea { width: 100%; min-height: 140px; padding: 16px 18px 34px; border-radius: 16px; border: 1px solid var(--line); background: var(--paper); font-size: 16px; line-height: 1.6; resize: none; overflow: hidden; transition: border-color .2s, background .2s; }
 .answer textarea:focus { outline: none; border-color: var(--ink); background: #fff; }

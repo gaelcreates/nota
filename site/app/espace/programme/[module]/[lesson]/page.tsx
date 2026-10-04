@@ -41,6 +41,8 @@ export default async function LessonPage({ params }: PageProps<"/espace/programm
   const done = new Set(completions.map((x) => x.item_key));
   const answer = answers.find((a) => a.item_key === l.key)?.answer ?? "";
   const feeds = DEPART.filter((d) => l.feeds?.includes(d.key));
+  // Module 01 : chaque leçon a sa section dans la copie Miro du membre
+  const miro = mi === 0 ? answers.find((a) => a.item_key === "d.miro")?.answer.trim() : undefined;
 
   // Leçon précédente et suivante, à travers les modules
   const flat = MODULES.flatMap((m) => m.lessons.map((x, i) => ({ m, x, n: i + 1 })));
@@ -88,8 +90,12 @@ export default async function LessonPage({ params }: PageProps<"/espace/programm
           <p className="label">Ta mission</p>
           <h2 className="display">{l.mission}</h2>
           <p className="muted">Livrable : {l.livrable}</p>
-          {feeds.length > 0 && (
+          {(feeds.length > 0 || mi === 0 || l.key === "m2.6") && (
             <div className="row-extra">
+              {mi === 0 && (miro?.startsWith("http")
+                ? <a href={miro} target="_blank" rel="noopener noreferrer" className="pill pill-ink">Ton Miro · section {li + 1} ↗</a>
+                : <Link href="/espace/depart#d.miro" className="pill pill-ink">Ton Miro · fais d&apos;abord ta copie</Link>)}
+              {l.key === "m2.6" && <Link href="/espace/micro-app" className="pill pill-ink">Ta micro-app, étape par étape</Link>}
               {feeds.map((d) => (
                 <Link key={d.key} href={`/espace/depart#${d.key}`} className={`pill${done.has(d.key) ? " pill-accent" : ""}`}>Matière : {d.title}</Link>
               ))}
