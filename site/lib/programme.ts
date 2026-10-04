@@ -238,14 +238,15 @@ export const MODULES: Module[] = [
     slug: "contenu",
     number: "03",
     title: "Le contenu",
-    livrable: "Ta grille, ta semaine type et trois scripts écrits",
+    livrable: "Ta grille, ta semaine type, trois scripts écrits et tes appels",
     lessons: [
       { key: "m3.1", title: "Le tunnel par émotions", mission: "Dessine ton tunnel en quatre étapes, un format par étape", livrable: "Ton tunnel en quatre étapes, un format par étape" },
       { key: "m3.2", title: "Le client idéal et le viewer idéal", mission: "Écris tes deux fiches : client idéal et viewer idéal", livrable: "Tes deux fiches, une page chacune", feeds: ["d.verbatims"] },
       { key: "m3.3", title: "Ta grille éditoriale", mission: "Construis ta grille : piliers × étapes du tunnel", livrable: "Ta grille : piliers × étapes du tunnel", feeds: ["d.posts"] },
       { key: "m3.4", title: "Les formats et les séries", mission: "Choisis tes trois formats, filme un exemple de chacun", livrable: "Tes trois formats, un exemple filmé pour chacun", feeds: ["d.posts"] },
       { key: "m3.5", title: "Le système de stories", mission: "Écris ta semaine de stories type", livrable: "Ta semaine de stories type" },
-      { key: "m3.6", title: "Accroche, preuves, boucle", mission: "Écris trois scripts : accroche, preuves, boucle ouverte", livrable: "Trois scripts écrits" },
+      { key: "m3.6", title: "Le script : accroche, preuves, boucles", mission: "Écris trois scripts annotés pour ton monteur : accroche, relance, preuves, boucles, re-hooks", livrable: "Trois scripts marqués entre crochets, avec le minutage de chaque mécanique", feeds: ["d.posts", "d.verbatims", "d.preuves"] },
+      { key: "m3.8", title: "L'appel à l'action : partir du pourquoi", mission: "Écris ton pourquoi en une phrase, puis un appel par étape du tunnel, placé dans tes scripts", livrable: "Ta phrase de pourquoi et quatre appels, un par étape du tunnel : l'appel d'aujourd'hui, puis sa version partie du pourquoi", feeds: ["d.verbatims"] },
       { key: "m3.7", title: "Produire avec constance", mission: "Pose ta semaine type, jour de tournage compris", livrable: "Ta semaine type, jour de tournage compris" },
     ],
   },
@@ -255,7 +256,7 @@ export const MODULES: Module[] = [
     title: "La conversion",
     livrable: "Ton chemin vers le rendez-vous, installé et mesuré",
     lessons: [
-      { key: "m4.1", title: "Appels à l'action et aimant", mission: "Écris tes trois appels à l'action, un par étape du tunnel", livrable: "Tes trois appels à l'action, écrits" },
+      { key: "m4.1", title: "Derrière l'appel : les portes et l'aimant", mission: "Branche chacun de tes appels sur sa porte, puis fais le parcours toi-même", livrable: "Ta carte des portes : chaque appel, où il mène, ce que la personne reçoit, le chiffre suivi", feeds: ["d.inconnu", "d.photo"] },
       { key: "m4.2", title: "Exploiter ta micro-app", mission: "Fais ton plan de diffusion et ta première relance", livrable: "Ton plan de diffusion et ta première relance" },
       { key: "m4.3", title: "Du message privé au rendez-vous", mission: "Écris ton script de message et tes tags", livrable: "Ton script de message et tes tags", feeds: ["d.inconnu"] },
       { key: "m4.4", title: "L'appel de vente, la Lecture", mission: "Écris ta trame d'appel et ta séquence de rappels", livrable: "Ta trame d'appel et ta séquence de rappels" },
@@ -264,7 +265,8 @@ export const MODULES: Module[] = [
   },
 ];
 
-export const LESSONS = MODULES.flatMap((m) => m.lessons.map((l) => ({ ...l, module: m })));
+// n : la place de la leçon dans son module (l'identifiant ne dit rien de l'ordre)
+export const LESSONS = MODULES.flatMap((m) => m.lessons.map((l, i) => ({ ...l, module: m, n: i + 1 })));
 
 export const EXTRAS = [
   { title: "IA et contenu", body: "Le module annexe, en complément." },
@@ -277,7 +279,7 @@ export const THEMES = [
   { key: "compte", title: "Analyse de compte", body: "Un membre, son compte en direct." },
   { key: "strategie", title: "Stratégie", body: "Ta grille contre ton tunnel : où ça fuit." },
   { key: "hooks", title: "Hooks", body: "Trois accroches réécrites en direct." },
-  { key: "script", title: "Script", body: "Accroche, preuves empilées, boucle ouverte." },
+  { key: "script", title: "Script", body: "Accroche, preuves empilées, boucle ouverte, appel." },
   { key: "offre", title: "Offre", body: "Une offre relue à voix haute." },
   { key: "microapp", title: "Micro-app", body: "Une micro-app de membre, en démo." },
   { key: "messages", title: "Messages et Lecture", body: "Du premier message à l'appel." },

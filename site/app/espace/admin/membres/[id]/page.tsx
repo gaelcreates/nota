@@ -49,7 +49,7 @@ export default async function MemberPage({ params }: PageProps<"/espace/admin/me
   const quiet = daysSince(last);
 
   const lessonAnswers = [
-    ...LESSONS.map((l) => ({ key: l.key, title: l.title, group: `Leçon ${l.module.number}·${l.key.split(".")[1]}` })),
+    ...LESSONS.map((l) => ({ key: l.key, title: l.title, group: `Leçon ${l.module.number}·${l.n}` })),
     ...MICRO_STEPS.flatMap((st) => (st.fields ?? []).map((f) => ({ key: f.key, title: f.label, group: `Micro-app · ${st.title}` }))),
   ].filter((x) => answer.has(x.key));
 

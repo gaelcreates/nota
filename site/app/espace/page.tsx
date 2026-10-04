@@ -6,12 +6,12 @@ import { MICRO_STEPS, MICRO_TASKS } from "@/lib/microapp";
 import { DEPART, LESSONS, MODULES, ONE_TO_ONE_WEEKS, THEMES } from "@/lib/programme";
 import { fmt, today, weekOf } from "@/lib/time";
 
-const lessonHref = (l: (typeof LESSONS)[number]) => `/espace/programme/${l.module.slug}/${l.key.split(".")[1]}`;
+const lessonHref = (l: (typeof LESSONS)[number]) => `/espace/programme/${l.module.slug}/${l.n}`;
 
 // Titre et lien de chaque élément cochable, pour « Fait récemment »
 const ITEMS = new Map<string, { title: string; kind: string; href: string }>([
   ...DEPART.map((m) => [m.key, { title: m.title, kind: "Le départ", href: `/espace/depart#${m.key}` }] as const),
-  ...LESSONS.map((l) => [l.key, { title: l.title, kind: `Leçon ${l.module.number}·${l.key.split(".")[1]}`, href: lessonHref(l) }] as const),
+  ...LESSONS.map((l) => [l.key, { title: l.title, kind: `Leçon ${l.module.number}·${l.n}`, href: lessonHref(l) }] as const),
   ...MICRO_TASKS.map((t) => [t.key, { title: t.label, kind: "Micro-app", href: "/espace/micro-app" }] as const),
 ]);
 
@@ -34,7 +34,7 @@ export default async function Accueil() {
   // Ce qu'il reste à faire, dans l'ordre
   const queue = [
     ...DEPART.filter((m) => m.group !== "bonus" && !done.has(m.key)).map((m) => ({ key: m.key, title: m.title, kind: "Le départ", body: m.body, href: `/espace/depart#${m.key}`, tag: `${m.minutes} min` })),
-    ...LESSONS.filter((l) => !done.has(l.key)).map((l) => ({ key: l.key, title: l.mission, kind: `Leçon ${l.module.number}·${l.key.split(".")[1]} · ${l.title}`, body: l.livrable, href: lessonHref(l), tag: "Mission" })),
+    ...LESSONS.filter((l) => !done.has(l.key)).map((l) => ({ key: l.key, title: l.mission, kind: `Leçon ${l.module.number}·${l.n} · ${l.title}`, body: l.livrable, href: lessonHref(l), tag: "Mission" })),
   ];
   const next = queue[0];
   const after = queue.slice(1, 4);

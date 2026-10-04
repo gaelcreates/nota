@@ -8,7 +8,7 @@ import { Mark } from "@/components/Mark";
 const NAV = [
   ["Accueil", ""],
   ["Le départ", "7/10"],
-  ["Programme", "3/27"],
+  ["Programme", "3/28"],
   ["Appels", ""],
   ["Ma marque", "5/15"],
   ["Micro-app", ""],
@@ -87,10 +87,10 @@ export function LoginPreview() {
                   <span className="lp-label">Ton espace Nota</span>
                   <span className="lp-h1">Bonjour <span className="lp-hl">Camille</span>.</span>
                 </div>
-                <span className="lp-week">28</span>
+                <span className="lp-week">26</span>
               </div>
               <div className="lp-ruler">
-                {Array.from({ length: 27 }, (_, i) => (
+                {Array.from({ length: 28 }, (_, i) => (
                   <i key={i} className={i < 3 ? "p" : i === 3 ? "c" : ""} style={{ ["--i" as string]: i }} />
                 ))}
               </div>
@@ -101,7 +101,7 @@ export function LoginPreview() {
               </div>
               <div className="lp-tiles">
                 <div><span className="lp-label">Le départ</span><b><span className="lp-count"><span className="a">6</span><span className="b">7</span></span><small>/10</small></b><em><i className="lp-grow" /></em></div>
-                <div><span className="lp-label">Programme</span><b>3<small>/27</small></b><em><i style={{ width: "12%" }} /></em></div>
+                <div><span className="lp-label">Programme</span><b>3<small>/28</small></b><em><i style={{ width: "11%" }} /></em></div>
                 <div><span className="lp-label">Appels 1:1</span><b>2</b><span className="lp-mini">Réserver →</span></div>
               </div>
             </main>

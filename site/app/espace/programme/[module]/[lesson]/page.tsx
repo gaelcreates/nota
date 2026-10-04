@@ -7,6 +7,9 @@ import { getBundle, getViewer } from "@/lib/data";
 import { CONTENT } from "@/lib/lessons";
 import { DEPART, MODULES } from "@/lib/programme";
 
+// Espaces insécables du français : « », : ; ? ! ne restent jamais seuls en début de ligne
+const fr = (s: string) => s.replace(/« /g, "«\u00a0").replace(/ ([»:;?!])/g, "\u00a0$1");
+
 function find(slug: string, n: string) {
   const mi = MODULES.findIndex((m) => m.slug === slug);
   const li = Number(n) - 1;
@@ -70,12 +73,12 @@ export default async function LessonPage({ params }: PageProps<"/espace/programm
           <>
             <section className="lesson-block">
               <h2>L&apos;essentiel</h2>
-              <ol className="essentials">{c.points.map((p) => <li key={p}>{p}</li>)}</ol>
+              <ol className="essentials">{c.points.map((p) => <li key={p}>{fr(p)}</li>)}</ol>
             </section>
             {c.examples.length > 0 && (
               <section className="lesson-block">
                 <h2>Exemples</h2>
-                <ul className="examples">{c.examples.map((e) => <li key={e}>{e}</li>)}</ul>
+                <ul className="examples">{c.examples.map((e) => <li key={e}>{fr(e)}</li>)}</ul>
               </section>
             )}
           </>
