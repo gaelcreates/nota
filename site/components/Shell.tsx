@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Brand } from "@/components/Mark";
 import { Nav, type NavItem } from "@/components/Nav";
 import { signOut } from "@/app/actions";
@@ -13,12 +14,12 @@ export function Shell({ viewer, items, children }: { viewer: Member; items: NavI
         <Brand />
         <Nav items={items} />
         <div className="rail-foot">
-          <a href="/espace/compte" className="who">
+          <Link href="/espace/compte" className="who">
             <strong>{first}</strong>
             <span>
               <OfferName offer={viewer.offer} /> · semaine {weekOf(viewer.start_date)}
             </span>
-          </a>
+          </Link>
           <form action={signOut}>
             <button className="signout" type="submit">Se déconnecter</button>
           </form>

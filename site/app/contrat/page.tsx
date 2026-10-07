@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { PrintButton } from "./PrintButton";
 import { Brand } from "@/components/Mark";
@@ -42,7 +43,7 @@ export default async function Contrat({ searchParams }: PageProps<"/contrat">) {
   return (
     <div className="ct-wrap">
       <div className="ct-bar no-print">
-        <a href="/espace" className="back muted">← Mon espace</a>
+        <Link href="/espace" className="back muted">← Mon espace</Link>
         <PrintButton />
       </div>
       <article className="ct">

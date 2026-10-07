@@ -1,11 +1,13 @@
 import "server-only";
 import { cache } from "react";
 import { cookies } from "next/headers";
+import { after } from "next/server";
 import { supabaseServer } from "@/lib/supabase/server";
 import type { Offer } from "@/lib/programme";
 import * as demo from "@/lib/demo";
 
 export const DEMO = process.env.NOTA_DEMO === "1" && process.env.NODE_ENV !== "production";
+const SEEN_EVERY = 10 * 60_000;
 
 export type Member = {
   id: string;
@@ -53,8 +55,14 @@ export const getRealViewer = cache(async (): Promise<Member | null> => {
   const { data: auth } = await db.auth.getClaims();
   if (!auth?.claims) return null;
   const { data } = await db.from("members").select("*").eq("user_id", auth.claims.sub).maybeSingle();
-  if (data) db.rpc("touch_last_seen").then(() => undefined);
-  return (data as Member) ?? null;
+  const member = (data as Member) ?? null;
+  // « Dernière activité » à dix minutes près : une écriture au plus toutes les dix minutes,
+  // lancée tout de suite (les cookies sont lus pendant la requête) et menée à terme après la réponse.
+  if (member && (!member.last_seen || Date.now() - Date.parse(member.last_seen) > SEEN_EVERY)) {
+    const touch = (async () => { await db.rpc("touch_last_seen"); })();
+    after(() => touch);
+  }
+  return member;
 });
 
 // L'admin peut entrer dans l'espace d'un membre : le cookie AS_COOKIE porte l'id du membre.
